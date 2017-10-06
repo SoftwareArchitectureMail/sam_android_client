@@ -7,4 +7,39 @@
     <string name="font_awesome_area_chart_icon">&#xf1fe;</string>
     <string name="font_awesome_cubes_icon">&#xf1b3;</string>
     <string name="font_awesome_mobile_phone_icon">&#xf10b;</string>
+
+    <!-- Buttons -->
+    <string name="main_register_btn">"Registrarse"</string>
+    <string name="main_login_btn">"Iniciar Sesión"</string>
+    <string name="login_enter_btn">"Ingresar"</string>
+    <string name="register_next_btn">"Siguiente"</string>
+    <string name="register_send_btn">"Enviar"</string>
+
+    <!-- Input Text -->
+    <string name="login_username_txt">"Nombre de usuario"</string>
+    <string name="login_password_txt">"Contraseña"</string>
+    <string name="register_name_txt">"Nombres"</string>
+    <string name="register_lastname_txt">"Apellidos"</string>
+    <string name="register_username_txt">"Nombre de usuario"</string>
+    <string name="register_password_txt">"Contraseña"</string>
+    <string name="register_reppassword_txt">"Repetir contraseña"</string>
+    <string name="register_year_txt">"Año"</string>
+    <string name="register_month_txt">"Mes"</string>
+    <string name="register_day_txt">"Día"</string>
+    <string name="register_gender_txt">"Genero"</string>
+    <string name="register_phone_txt">"Teléfono"</string>
+    <string name="register_currentmail_txt">"Correo actual"</string>
+    <string name="register_location_txt">"Ubicación"</string>
+
+    <!-- Static Text -->
+    <string name="login_login_stxt">"Iniciar Sesión"</string>
+    <string name="register_register_stxt">"Registro"</string>
+    <string name="register_domain_stxt">"@sam.com"</string>
+    <string name="register_birthdate_stxt">"Fecha de nacimiento"</string>
+
+    <string-array name="register_genders_array">
+        <item>Hombre</item>
+        <item>Mujer</item>
+    </string-array>
+
 </resources>

@@ -1,10 +1,10 @@
 package com.sam.teamd.samandroidclient;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.View;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
 
@@ -20,8 +20,15 @@ public class MainActivity extends AppCompatActivity {
         // To use the same font in all the APP
         Calligrapher calligrapher = new Calligrapher(this);
         calligrapher.setFont(this, "font/SourceSansPro-Regular.ttf", true);
+    }
 
-        Button fontAwesomeUniversityIcon = (Button) findViewById(R.id.font_awesome_university_icon);
-        fontAwesomeUniversityIcon.setTypeface(fontAwesomeFont);
+    public void login(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void register(View view) {
+        Intent intent = new Intent(this, RegisterActivity1.class);
+        startActivity(intent);
     }
 }
