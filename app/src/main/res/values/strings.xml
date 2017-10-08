@@ -37,6 +37,14 @@
     <string name="register_domain_stxt">"@sam.com"</string>
     <string name="register_birthdate_stxt">"Fecha de nacimiento"</string>
 
+    <!-- Errors Text -->
+    <string name="empty_fielf_error">"Este campo no puede estar vacío "</string>
+
+
+    <!-- url Text -->
+    <string name="base_url">"192.168.99.101:4000/"</string>
+
+
     <string-array name="register_genders_array">
         <item>Hombre</item>
         <item>Mujer</item>
