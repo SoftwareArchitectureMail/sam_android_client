@@ -7,27 +7,29 @@
     tools:context="com.sam.teamd.samandroidclient.MainActivity">
 
     <Button
-        android:id="@+id/main_register_btn"
+        android:id="@+id/btn_main_register"
         style="@android:style/Widget.Material.Button"
-        android:layout_width="212dp"
-        android:layout_height="68dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="276dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="277dp"
         android:onClick="register"
         android:text="@string/main_register_btn"
         android:textAllCaps="false"
-        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/main_login_btn"
+        android:id="@+id/btn_main_login"
         style="@android:style/Widget.Material.Button"
-        android:layout_width="205dp"
-        android:layout_height="57dp"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
         android:layout_marginTop="50dp"
         android:onClick="login"
         android:text="@string/main_login_btn"
@@ -36,6 +38,6 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_register_btn"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_main_register"
+        app:layout_constraintVertical_bias="0.046" />
 </android.support.constraint.ConstraintLayout>

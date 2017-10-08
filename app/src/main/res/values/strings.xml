@@ -16,28 +16,28 @@
     <string name="register_send_btn">"Enviar"</string>
 
     <!-- Input Text -->
-    <string name="login_username_txt">"Nombre de usuario"</string>
-    <string name="login_password_txt">"Contraseña"</string>
-    <string name="register_name_txt">"Nombres"</string>
-    <string name="register_lastname_txt">"Apellidos"</string>
-    <string name="register_username_txt">"Nombre de usuario"</string>
-    <string name="register_password_txt">"Contraseña"</string>
-    <string name="register_reppassword_txt">"Repetir contraseña"</string>
-    <string name="register_year_txt">"Año"</string>
-    <string name="register_month_txt">"Mes"</string>
-    <string name="register_day_txt">"Día"</string>
-    <string name="register_gender_txt">"Genero"</string>
-    <string name="register_phone_txt">"Teléfono"</string>
-    <string name="register_currentmail_txt">"Correo actual"</string>
-    <string name="register_location_txt">"Ubicación"</string>
+    <string name="login_username_input">"Nombre de usuario"</string>
+    <string name="login_password_input">"Contraseña"</string>
+    <string name="register_name_input">"Nombres"</string>
+    <string name="register_lastname_input">"Apellidos"</string>
+    <string name="register_username_input">"Nombre de usuario"</string>
+    <string name="register_password_input">"Contraseña"</string>
+    <string name="register_reppassword_input">"Repetir contraseña"</string>
+    <string name="register_year_input">"Año"</string>
+    <string name="register_month_input">"Mes"</string>
+    <string name="register_day_input">"Día"</string>
+    <string name="register_phone_input">"Teléfono"</string>
+    <string name="register_currentmail_input">"Correo actual"</string>
+    <string name="register_location_input">"Ubicación"</string>
 
     <!-- Static Text -->
-    <string name="login_login_stxt">"Iniciar Sesión"</string>
-    <string name="register_register_stxt">"Registro"</string>
-    <string name="register_domain_stxt">"@sam.com"</string>
-    <string name="register_birthdate_stxt">"Fecha de nacimiento"</string>
+    <string name="login_login_txt">"Iniciar Sesión"</string>
+    <string name="register_register_txt">"Registro"</string>
+    <string name="register_domain_txt">"@sam.com"</string>
+    <string name="register_gender_txt">"Genero"</string>
+    <string name="register_birthdate_txt">"Fecha de nacimiento"</string>
 
-    <string-array name="register_genders_array">
+    <string-array name="register_genders_arr">
         <item>Hombre</item>
         <item>Mujer</item>
     </string-array>
