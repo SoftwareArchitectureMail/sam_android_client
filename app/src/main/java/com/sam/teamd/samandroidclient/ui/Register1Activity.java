@@ -18,7 +18,7 @@ public class Register1Activity extends AppCompatActivity {
 
         Spinner spinner_register_gender = (Spinner) findViewById(R.id.spinner_register_gender);
         ArrayAdapter<CharSequence> adapter_register_genders = ArrayAdapter.createFromResource(this,
-                R.array.register_genders_arr, android.R.layout.simple_spinner_item);
+                R.array.register_genders_array, android.R.layout.simple_spinner_item);
         adapter_register_genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_register_gender.setAdapter(adapter_register_genders);
     }
