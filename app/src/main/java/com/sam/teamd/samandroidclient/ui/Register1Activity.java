@@ -1,4 +1,4 @@
-package com.sam.teamd.samandroidclient;
+package com.sam.teamd.samandroidclient.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.sam.teamd.samandroidclient.R;
 
 public class Register1Activity extends AppCompatActivity {
 

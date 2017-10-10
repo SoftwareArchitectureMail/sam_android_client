@@ -1,10 +1,12 @@
-package com.sam.teamd.samandroidclient;
+package com.sam.teamd.samandroidclient.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.sam.teamd.samandroidclient.R;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
 

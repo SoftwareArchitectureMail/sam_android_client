@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,24 +19,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.LoginActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity
-            android:name=".Register1Activity"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.Register1Activity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".Register2Activity"
-            android:parentActivityName=".Register1Activity">
+        <activity android:name=".ui.Register2Activity"
+            android:parentActivityName=".ui.Register1Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Register1Activity" />
+                android:value=".ui.Register1Activity" />
         </activity>
     </application>
 
