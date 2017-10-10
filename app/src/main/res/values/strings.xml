@@ -37,7 +37,23 @@
     <string name="register_gender_txt">"Genero"</string>
     <string name="register_birthdate_txt">"Fecha de nacimiento"</string>
 
-    <string-array name="register_genders_arr">
+    <!-- Errors Text -->
+    <string name="empty_fielf_error">"Este campo no puede estar vacío "</string>
+    <string name="authentication_error">"Datos de usuario invalidos"</string>
+    <string name="refresh_token_error">"No se pudo refrescar el token"</string>
+    <string name="conection_error">"Hay un problema de conexion, intente mas tarde"</string>
+
+    <!-- url Text -->
+    <string name="base_url">"http://192.168.0.11:4000/"</string>
+
+
+    <!-- Shared Preferences -->
+    <string name="shared_preferences_name">"sam_login_data"</string>
+    <string name="shared_token">"token"</string>
+    <string name="shared_refresh_token">"refresh"</string>
+
+
+    <string-array name="register_genders_array">
         <item>Hombre</item>
         <item>Mujer</item>
     </string-array>
