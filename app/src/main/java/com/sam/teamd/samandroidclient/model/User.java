@@ -1,10 +1,21 @@
 package com.sam.teamd.samandroidclient.model;
 
+import android.util.Log;
+
+import com.sam.teamd.samandroidclient.service.Api;
+import com.sam.teamd.samandroidclient.service.UserClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by david on 8/10/17.
  */
 
 public class User {
+
+    private static final String LOG_TAG = User.class.getSimpleName();
 
     private String firstName;
     private String lastName;
@@ -34,6 +45,7 @@ public class User {
         this.mobilePhone = mobilePhone;
         this.token = token;
     }
+
 
     public String getFirstName() {
         return firstName;

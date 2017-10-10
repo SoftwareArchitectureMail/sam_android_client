@@ -7,11 +7,14 @@ package com.sam.teamd.samandroidclient.model;
 public class Token {
 
     private String token;
-    private String refToken;
+    private String refresh;
 
-    public Token(String token, String refToken) {
+    public Token() {
+    }
+
+    public Token(String token, String refresh) {
         this.token = token;
-        this.refToken = refToken;
+        this.refresh = refresh;
     }
 
     public String getToken() {
@@ -22,11 +25,11 @@ public class Token {
         this.token = token;
     }
 
-    public String getRefToken() {
-        return refToken;
+    public String getRefresh() {
+        return refresh;
     }
 
-    public void setRefToken(String refToken) {
-        this.refToken = refToken;
+    public void setRefresh(String refresh) {
+        this.refresh = refresh;
     }
 }
