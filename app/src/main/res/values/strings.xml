@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SAMAndroidClient</string>
+    <string name="app_name">SAM</string>
 
     <!-- Set of icons from font awesome -->
     <string name="font_awesome_university_icon">&#xf19c;</string>
@@ -14,6 +14,12 @@
     <string name="login_enter_btn">"Ingresar"</string>
     <string name="register_next_btn">"Siguiente"</string>
     <string name="register_send_btn">"Enviar"</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Mi perfil</string>
+    <string name="action_exit">Salir</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Input Text -->
     <string name="login_username_input">"Nombre de usuario"</string>

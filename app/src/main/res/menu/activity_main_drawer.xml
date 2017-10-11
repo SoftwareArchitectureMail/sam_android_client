@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inbox"
+            android:icon="@drawable/ic_menu_inbox"
+            android:title="Recibidos" />
+        <item
+            android:id="@+id/nav_sent"
+            android:icon="@drawable/ic_menu_sent"
+            android:title="Enviados" />
+        <item
+            android:id="@+id/nav_draft"
+            android:icon="@drawable/ic_menu_draft"
+            android:title="Borradores" />
+        <item
+            android:id="@+id/nav_important"
+            android:icon="@drawable/ic_menu_important"
+            android:title="Urgentes" />
+    </group>
+
+</menu>
