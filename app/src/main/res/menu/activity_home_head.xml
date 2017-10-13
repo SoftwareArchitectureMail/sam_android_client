@@ -4,20 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inbox"
-            android:icon="@drawable/ic_menu_inbox"
-            android:title="Recibidos" />
+            android:title="Recibidos"/>
         <item
             android:id="@+id/nav_sent"
-            android:icon="@drawable/ic_menu_sent"
-            android:title="Enviados" />
+            android:title="Enviados"/>
         <item
             android:id="@+id/nav_draft"
-            android:icon="@drawable/ic_menu_draft"
-            android:title="Borradores" />
+            android:title="Borradores"/>
         <item
             android:id="@+id/nav_important"
-            android:icon="@drawable/ic_menu_important"
-            android:title="Urgentes" />
+            android:title="Urgentes"/>
     </group>
 
 </menu>

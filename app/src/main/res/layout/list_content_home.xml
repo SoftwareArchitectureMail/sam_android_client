@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/sender"
+            android:layout_width="287dp"
+            android:layout_height="wrap_content"
+            android:width="210sp"
+            android:maxWidth="210sp"
+            android:text="@string/txt_sender"
+            android:textColor="@android:color/black"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/subject"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_subject"
+            android:textColor="@android:color/black"
+            android:textSize="20px"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_body"
+            android:textColor="@android:color/black"
+            android:textSize="20px"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:text="@string/txt_date" />
+
+
+</LinearLayout>

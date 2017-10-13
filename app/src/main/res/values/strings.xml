@@ -64,4 +64,10 @@
         <item>Mujer</item>
     </string-array>
 
+    <!-- Para probar las listas y luego de implementar el modelo borrar-->
+    <string name="txt_sender">"Pepito Perez"</string>
+    <string name="txt_subject">"Correo de prueba"</string>
+    <string name="txt_body">"Este es un correo de prueba"</string>
+    <string name="txt_date">"12/12/2017"</string>
+
 </resources>
