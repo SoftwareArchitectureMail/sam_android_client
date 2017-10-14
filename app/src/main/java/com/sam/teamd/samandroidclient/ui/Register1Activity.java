@@ -13,14 +13,22 @@ import android.widget.Toast;
 
 import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.User;
+import com.sam.teamd.samandroidclient.service.Api;
+import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 
-import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Register1Activity extends AppCompatActivity {
 
     private static final String LOG_TAG = Register1Activity.class.getSimpleName();
+    private UserClient userClient = Api.getInstance().getUserClient();
 
     private Button btnNext;
     private Spinner spinnerGender;
@@ -49,7 +57,7 @@ public class Register1Activity extends AppCompatActivity {
     private void nextForm(){
         boolean errors = false;
         String name, lastName, phone, gender;
-        GregorianCalendar birthDate;
+        Date birthDate;
 
         name = validateTextField(findViewById(R.id.input_register_name));
         errors = (name == null) || errors;
@@ -83,6 +91,29 @@ public class Register1Activity extends AppCompatActivity {
         if (requestCode == Constants.REQ_CODE_REG2) {
             if (resultCode == RESULT_OK) {
                 User user = (User) data.getSerializableExtra(Constants.EXTRA_USER);
+                Call<User> call = userClient.createUser(user);
+                call.enqueue(new Callback<User>() {
+                                 @Override
+                                 public void onResponse(Call<User> call, Response<User> response) {
+                                     if(response.isSuccessful()){
+                                         Log.d(LOG_TAG, response.toString());
+                                         Intent intent = new Intent(Register1Activity.this, LoginActivity.class);
+                                         intent.putExtra(Constants.EXTRA_USERNAME, response.body().getUsername());
+                                         startActivity(intent);
+                                         finish();
+                                     }else{
+                                         //TODO validar error
+                                         Log.d(LOG_TAG, response.toString());
+                                         Toast.makeText(Register1Activity.this, "Error creando el usuario" + response.toString() , Toast.LENGTH_SHORT).show();
+                                     }
+                                 }
+                                 @Override
+                                 public void onFailure(Call<User> call, Throwable t) {
+                                     Log.d(LOG_TAG, "Error", t);
+                                     Toast.makeText(Register1Activity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+                                     finish();
+                                 }
+                             });
                 Log.d(LOG_TAG, user.getFirstName());
                 Log.d(LOG_TAG, user.getLastName());
                 Log.d(LOG_TAG, user.getUsername());
@@ -91,14 +122,15 @@ public class Register1Activity extends AppCompatActivity {
         }
     }
     //TODO Eliminar cuando a steven se le de la gana de implementar el maldito date picker
-    private GregorianCalendar getDate(){
-        GregorianCalendar date = null;
+    private Date getDate(){
+        Date date = null;
         String year = validateTextField(findViewById(R.id.input_register_year));
         String month = validateTextField(findViewById(R.id.input_register_month));
         String day = validateTextField(findViewById(R.id.input_register_day));
 
         if(day != null && year != null && month != null){
-            date = new GregorianCalendar(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+            Calendar calendar = new GregorianCalendar(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+            date = calendar.getTime();
         }
         return date;
     }

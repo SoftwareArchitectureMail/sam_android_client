@@ -1,10 +1,10 @@
 package com.sam.teamd.samandroidclient.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  * Created by david on 8/10/17.
@@ -12,22 +12,27 @@ import java.util.GregorianCalendar;
 
 public class User implements Serializable{
 
-
+    @SerializedName("first_name")
     private String firstName;
+    @SerializedName("last_name")
     private String lastName;
     private String username;
-    private String Password;
+    private String password;
+    @SerializedName("current_email")
     private String currentEmail;
 
-    private GregorianCalendar dateBirth;
+    @SerializedName("date_birth")
+    private Date dateBirth;
 
+    @SerializedName("mobile_phone")
     private long mobilePhone;
+    @Expose(serialize = false)
     private int location;
     private int gender;
 
     private Token token;
 
-    public User(String firstName, String lastName, GregorianCalendar dateBirth, long mobilePhone, int gender) {
+    public User(String firstName, String lastName, Date dateBirth, long mobilePhone, int gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
@@ -35,7 +40,7 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public User(String firstName, String lastName, String username, String currentEmail, GregorianCalendar dateBirth, long mobilePhone, int location, int gender) {
+    public User(String firstName, String lastName, String username, String currentEmail, Date dateBirth, long mobilePhone, int location, int gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -46,7 +51,7 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public User(String firstName, String lastName, String username, String currentEmail, GregorianCalendar dateBirth, long mobilePhone, int location, int gender, Token token) {
+    public User(String firstName, String lastName, String username, String currentEmail, Date dateBirth, long mobilePhone, int location, int gender, Token token) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -61,7 +66,7 @@ public class User implements Serializable{
 
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -104,11 +109,11 @@ public class User implements Serializable{
         this.mobilePhone = mobilePhone;
     }
 
-    public GregorianCalendar getDateBirth() {
+    public Date getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(GregorianCalendar dateBirth) {
+    public void setDateBirth(Date dateBirth) {
         this.dateBirth = dateBirth;
     }
 

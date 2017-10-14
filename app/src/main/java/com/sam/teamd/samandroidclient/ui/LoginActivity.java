@@ -1,6 +1,7 @@
 package com.sam.teamd.samandroidclient.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.sam.teamd.samandroidclient.model.Token;
 import com.sam.teamd.samandroidclient.model.User;
 import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.UserClient;
+import com.sam.teamd.samandroidclient.util.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +36,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Intent intent = getIntent();
+        String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
+
         inputUsername = (EditText) findViewById(R.id.input_login_username);
+        if(username != null){
+            Toast.makeText(this, getString(R.string.user_created_toast), Toast.LENGTH_LONG).show();
+            inputUsername.setText(username);
+        }
         inputPassword= (EditText) findViewById(R.id.input_login_password);
 
         btnLogin = (Button) findViewById(R.id.btn_login_enter);

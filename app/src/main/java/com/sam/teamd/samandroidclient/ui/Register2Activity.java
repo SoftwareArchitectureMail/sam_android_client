@@ -3,20 +3,35 @@ package com.sam.teamd.samandroidclient.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.User;
+import com.sam.teamd.samandroidclient.service.Api;
+import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 
 import java.util.GregorianCalendar;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Register2Activity extends AppCompatActivity {
 
+    private static final String LOG_TAG = Register2Activity.class.getSimpleName();
+    private UserClient userClient = Api.getInstance().getUserClient();
+
     private Button btnSend;
-    private  User user;
+    private User user;
+    private EditText inputUsername;
+    private boolean validUsername = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +48,52 @@ public class Register2Activity extends AppCompatActivity {
             }
         });
 
+        inputUsername = (EditText) findViewById(R.id.input_register_username);
+        inputUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                validateUsername();
+            }
+        });
+
+    }
+
+    private void validateUsername() {
+        String username = inputUsername.getText().toString();
+        if(username.length() <= 5){
+            validUsername = false;
+            inputUsername.setError(getString(R.string.username_short_error));
+        }else{
+            Call<ResponseBody> call = userClient.validateUsername(username);
+            call.enqueue(new Callback<ResponseBody>(){
+
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if(response.isSuccessful()){
+                        validUsername = false;
+                        inputUsername.setError(getString(R.string.username_in_use_fielf_error));
+                    }else{
+                        validUsername = true;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    //TODO Validar error!
+                    Log.e(LOG_TAG, "Error en login", t);
+                    Toast.makeText(Register2Activity.this, getString(R.string.conection_error), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public void send(){
         boolean errors = false;
         String username, password, email, location;
-        GregorianCalendar birthDate;
+        validateUsername();
 
         username = validateTextField(findViewById(R.id.input_register_username));
-        errors = (username == null) || errors;
+        errors = !validUsername || errors;
 
         email = validateTextField(findViewById(R.id.input_register_currentemail));
         errors = (email == null) || errors;
@@ -69,12 +121,13 @@ public class Register2Activity extends AppCompatActivity {
 
     private String validatePasswords() {
         String password = null;
-        EditText pass, passConf;
-        pass = (EditText)  findViewById(R.id.input_register_password);
-        passConf = (EditText)  findViewById(R.id.input_register_reppassword);
+        EditText pass = (EditText)  findViewById(R.id.input_register_password);
+        EditText passConf = (EditText)  findViewById(R.id.input_register_reppassword);
 
         if(pass.getText().toString().equals(passConf.getText().toString())){
             password = pass.getText().toString();
+        }else{
+            pass.setError(getString(R.string.password_doesnt_match_error));
         }
 
         return password;
