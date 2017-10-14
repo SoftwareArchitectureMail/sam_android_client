@@ -1,51 +1,73 @@
 package com.sam.teamd.samandroidclient.model;
 
-import android.util.Log;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import com.sam.teamd.samandroidclient.service.Api;
-import com.sam.teamd.samandroidclient.service.UserClient;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by david on 8/10/17.
  */
 
-public class User {
+public class User implements Serializable{
 
-    private static final String LOG_TAG = User.class.getSimpleName();
-
+    @SerializedName("first_name")
     private String firstName;
+    @SerializedName("last_name")
     private String lastName;
     private String username;
-    private String gender;
-    private String dateBirth;
-    private String mobilePhone;
+    private String password;
+    @SerializedName("current_email")
+    private String currentEmail;
+
+    @SerializedName("date_birth")
+    private Date dateBirth;
+
+    @SerializedName("mobile_phone")
+    private long mobilePhone;
+    @Expose(serialize = false)
+    private int location;
+    private int gender;
+
     private Token token;
 
-    public User(String firstName, String lastName, String username, String gender, String dateBirth,
-                String mobilePhone) {
+    public User(String firstName, String lastName, Date dateBirth, long mobilePhone, int gender) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
-        this.gender = gender;
         this.dateBirth = dateBirth;
         this.mobilePhone = mobilePhone;
+        this.gender = gender;
     }
 
-    public User(String firstName, String lastName, String username, String gender, String dateBirth,
-                String mobilePhone, Token token) {
+    public User(String firstName, String lastName, String username, String currentEmail, Date dateBirth, long mobilePhone, int location, int gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
-        this.gender = gender;
+        this.currentEmail = currentEmail;
         this.dateBirth = dateBirth;
         this.mobilePhone = mobilePhone;
+        this.location = location;
+        this.gender = gender;
+    }
+
+    public User(String firstName, String lastName, String username, String currentEmail, Date dateBirth, long mobilePhone, int location, int gender, Token token) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.currentEmail = currentEmail;
+        this.dateBirth = dateBirth;
+        this.mobilePhone = mobilePhone;
+        this.location = location;
+        this.gender = gender;
         this.token = token;
     }
 
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -71,28 +93,44 @@ public class User {
         this.username = username;
     }
 
-    public String getGender() {
-        return gender;
+    public String getCurrentEmail() {
+        return currentEmail;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setCurrentEmail(String currentEmail) {
+        this.currentEmail = currentEmail;
     }
 
-    public String getDateBirth() {
-        return dateBirth;
-    }
-
-    public void setDateBirth(String dateBirth) {
-        this.dateBirth = dateBirth;
-    }
-
-    public String getMobilePhone() {
+    public long getMobilePhone() {
         return mobilePhone;
     }
 
-    public void setMobilePhone(String mobilePhone) {
+    public void setMobilePhone(long mobilePhone) {
         this.mobilePhone = mobilePhone;
+    }
+
+    public Date getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public Token getToken() {
@@ -102,4 +140,5 @@ public class User {
     public void setToken(Token token) {
         this.token = token;
     }
+
 }

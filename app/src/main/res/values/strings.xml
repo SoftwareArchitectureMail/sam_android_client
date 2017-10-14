@@ -39,9 +39,15 @@
 
     <!-- Errors Text -->
     <string name="empty_fielf_error">"Este campo no puede estar vacío "</string>
+    <string name="username_in_use_fielf_error">"Este nombre de usuario ya se encuentra en uso"</string>
+    <string name="username_short_error">"El nombre de usuario debe tener al menos 5 caracteres"</string>
+    <string name="password_doesnt_match_error">"Las contraseñas deben ser iguales"</string>
     <string name="authentication_error">"Datos de usuario invalidos"</string>
     <string name="refresh_token_error">"No se pudo refrescar el token"</string>
     <string name="conection_error">"Hay un problema de conexion, intente mas tarde"</string>
+
+    <!-- Toast Msg Text -->
+    <string name="user_created_toast">"Usuario creado con exito, por favor ingrese con su contraseña-"</string>
 
     <!-- url Text -->
     <string name="base_url">"http://192.168.0.11:4000/"</string>

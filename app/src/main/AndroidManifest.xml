@@ -28,7 +28,7 @@
                 android:value=".ui.MainActivity" />
         </activity>
 
-        <activity android:name="ui.Register1Activity"
+        <activity android:name=".ui.Register1Activity"
             android:parentActivityName="ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
