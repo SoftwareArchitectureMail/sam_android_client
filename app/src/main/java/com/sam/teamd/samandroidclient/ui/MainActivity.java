@@ -64,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d(LOG_TAG, response.toString());
                 if(response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Login Exitoso" + response.body().getUsername(), Toast.LENGTH_SHORT).show();
+                    User currentUser = response.body();
+                    currentUser.setToken(token);
+                    Toast.makeText(MainActivity.this, "Login Exitoso" + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
                 }
                 else if(response.code() == 401) {
                     Token newToken = Api.getInstance().RefreshToken(token);

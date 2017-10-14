@@ -17,6 +17,7 @@ public class Login {
     public Login(String username, String password) {
         this.username = username;
         this.password = password;
+        //TODO Poner device ID
         this.deviceId = "123456";
     }
 

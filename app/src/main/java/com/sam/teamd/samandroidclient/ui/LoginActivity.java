@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, response.toString());
                     if(response.isSuccessful()){
                         saveUserToken(response.body().getToken());
-                        loadToken();
                         Toast.makeText(LoginActivity.this, "Login Exitoso", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(LoginActivity.this, getString(R.string.authentication_error), Toast.LENGTH_SHORT).show();
@@ -101,10 +100,4 @@ public class LoginActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private void loadToken() {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.shared_token), null);
-        String refresh = sharedPref.getString(getString(R.string.shared_refresh_token), null);
-        Log.d(LOG_TAG, token + "   " + refresh);
-    }
 }
