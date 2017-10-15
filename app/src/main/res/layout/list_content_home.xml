@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/static_list_content_home_urgent"
+            android:layout_width="14dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:text="@string/fa_exclamation_circle" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/static_list_content_home_sender"
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:width="210sp"
+            android:maxWidth="210sp"
+            android:textColor="@android:color/black"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/static_list_content_home_subject"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20px"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/static_list_content_home_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20px"
+            android:maxLength="10"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/static_list_content_home_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="20px"
+            tools:text="@string/txt_date"/>
+
+        <TextView
+            android:id="@+id/static_list_content_home_attachment"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:text="@string/fa_exclamation_circle" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

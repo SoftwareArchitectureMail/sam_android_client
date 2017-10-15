@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Icons Fontawesome  -->
+    <string name="fa_chevron_circle_right">&#xf138;</string>
+    <string name="fa_file">&#xf15b;</string>
+    <string name="fa_text_height">&#xf034;></string>
+    <string name="fa_calendar">&#xf073;</string>
+    <string name="fa_check">&#xf00c;</string>
+    <string name="fa_envelope">&#xf0e0;</string>
+    <string name="fa_envelope_open">&#xf2b6;</string>
+    <string name="fa_floppy">&#xf0c7;</string>
+    <string name="fa_folder_open">&#xf07c;</string>
+    <string name="fa_registered">&#xf25d;</string>
+    <string name="fa_remove">&#xf00d;</string>
+    <string name="fa_user_circle">&#xf2bd;</string>
+    <string name="fa_star">&#xf005;</string>
+    <string name="fa_paperclip">&#xf0c6;</string>
+    <string name="fa_exclamation_circle">&#xf06a;</string>
+
+</resources>
