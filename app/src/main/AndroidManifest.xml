@@ -41,7 +41,7 @@
                 android:value=".ui.Register1Activity" />
         </activity>
         <activity
-            android:name=".SendMailActivity"
+            android:name=".ui.SendMailActivity"
             android:parentActivityName=".Register2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

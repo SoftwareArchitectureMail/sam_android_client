@@ -1,5 +1,6 @@
 package com.sam.teamd.samandroidclient.ui;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,9 +19,11 @@ import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +41,39 @@ public class Register1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
+
+        // Calendar for date picker
+        final Calendar register_birthdate_calendar = Calendar.getInstance();
+        // Edit text for date
+        final EditText register_birthdate_input = (EditText) findViewById(R.id.input_register_birthdate);
+        // Method for date picker
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                register_birthdate_calendar.set(Calendar.YEAR, year);
+                register_birthdate_calendar.set(Calendar.MONTH, monthOfYear);
+                register_birthdate_calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+            private void updateLabel() {
+                String send_mail_date_format = "MM/dd/yy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(send_mail_date_format, Locale.US);
+
+                register_birthdate_input.setText(sdf.format(register_birthdate_calendar.getTime()));
+            }
+        };
+        register_birthdate_input.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(Register1Activity.this, date, register_birthdate_calendar
+                        .get(Calendar.YEAR), register_birthdate_calendar.get(Calendar.MONTH),
+                        register_birthdate_calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         spinnerGender = (Spinner) findViewById(R.id.spinner_register_gender);
         ArrayAdapter<CharSequence> adapter_register_genders = ArrayAdapter.createFromResource(this,
@@ -145,16 +182,13 @@ public class Register1Activity extends AppCompatActivity {
         return text;
     }
 
-    private String validateTextField(View v){
+    private String validateTextField(View v) {
         EditText editText = (EditText) v;
         String text = editText.getText().toString();
-        if(text.length() == 0) {
+        if (text.length() == 0) {
             editText.setError(getString(R.string.empty_fielf_error));
             text = null;
         }
         return text;
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package com.sam.teamd.samandroidclient;
+package com.sam.teamd.samandroidclient.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+import com.sam.teamd.samandroidclient.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
