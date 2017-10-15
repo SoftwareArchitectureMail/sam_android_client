@@ -32,11 +32,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".Register2Activity"
+        <activity
+            android:name=".Register2Activity"
             android:parentActivityName=".Register1Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Register1Activity" />
+        </activity>
+        <activity
+            android:name=".SendMailActivity"
+            android:parentActivityName=".Register2Activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Register2Activity" />
         </activity>
     </application>
 
