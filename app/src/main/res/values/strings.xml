@@ -53,7 +53,7 @@
     <string name="conection_error">"Hay un problema de conexion, intente mas tarde"</string>
 
     <!-- Toast Msg Text -->
-    <string name="user_created_toast">"Usuario creado con exito, por favor ingrese con su contraseña-"</string>
+    <string name="user_created_toast">"Usuario creado con exito, por favor ingrese con su contraseña"</string>
 
     <!-- url Text -->
     <string name="base_url">"http://192.168.0.11:4000/"</string>

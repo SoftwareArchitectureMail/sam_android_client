@@ -1,8 +1,11 @@
 package com.sam.teamd.samandroidclient.service;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.sam.teamd.samandroidclient.model.Token;
+import com.sam.teamd.samandroidclient.util.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +60,7 @@ public class Api {
         return this.userClient;
     }
 
-    public Token RefreshToken(final Token token){
+    public Token RefreshToken(final Token token, final Context context){
         final Token newToken = new Token();
         if(token != null) {
             UserClient userClient = Api.getInstance().getUserClient();
@@ -69,6 +72,10 @@ public class Api {
                     if (response.isSuccessful()) {
                         newToken.setRefresh(response.body().getRefresh());
                         newToken.setToken(response.body().getToken());
+                    }else{
+                        SharedPreferences preferences = context.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        preferences.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
+                        preferences.edit().remove(Constants.SHARED_PREF_REF).apply();
                     }
                 }
                 @Override
@@ -80,4 +87,7 @@ public class Api {
         Log.d(LOG_TAG, "TOKEN: " + newToken.getToken() + "    " + newToken.getRefresh());
         return (newToken.getToken() == null || newToken.getRefresh() == null) ? null : newToken;
     }
+
+
+
 }

@@ -19,6 +19,7 @@ import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,7 +35,9 @@ public class Register1Activity extends AppCompatActivity {
     private static final String LOG_TAG = Register1Activity.class.getSimpleName();
     private UserClient userClient = Api.getInstance().getUserClient();
 
+
     private Button btnNext;
+    private EditText inputBirthdate;
     private Spinner spinnerGender;
 
     @Override
@@ -45,7 +48,7 @@ public class Register1Activity extends AppCompatActivity {
         // Calendar for date picker
         final Calendar register_birthdate_calendar = Calendar.getInstance();
         // Edit text for date
-        final EditText register_birthdate_input = (EditText) findViewById(R.id.input_register_birthdate);
+        inputBirthdate = (EditText) findViewById(R.id.input_register_birthdate);
         // Method for date picker
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -58,13 +61,14 @@ public class Register1Activity extends AppCompatActivity {
                 updateLabel();
             }
             private void updateLabel() {
-                String send_mail_date_format = "MM/dd/yy"; //In which you need put here
+                String send_mail_date_format = "dd/MM/yy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(send_mail_date_format, Locale.US);
 
-                register_birthdate_input.setText(sdf.format(register_birthdate_calendar.getTime()));
+                inputBirthdate.setText(sdf.format(register_birthdate_calendar.getTime()));
             }
         };
-        register_birthdate_input.setOnClickListener(new View.OnClickListener() {
+
+        inputBirthdate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -121,6 +125,20 @@ public class Register1Activity extends AppCompatActivity {
         }
     }
 
+    private Date getDate() {
+        Date date = null;
+        String text = inputBirthdate.getText().toString();
+        if(text.length() > 0 ){
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy", Locale.US);
+            try {
+                date = format.parse(text);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -130,46 +148,28 @@ public class Register1Activity extends AppCompatActivity {
                 User user = (User) data.getSerializableExtra(Constants.EXTRA_USER);
                 Call<User> call = userClient.createUser(user);
                 call.enqueue(new Callback<User>() {
-                                 @Override
-                                 public void onResponse(Call<User> call, Response<User> response) {
-                                     if(response.isSuccessful()){
-                                         Log.d(LOG_TAG, response.toString());
-                                         Intent intent = new Intent(Register1Activity.this, LoginActivity.class);
-                                         intent.putExtra(Constants.EXTRA_USERNAME, response.body().getUsername());
-                                         startActivity(intent);
-                                         finish();
-                                     }else{
-                                         //TODO validar error
-                                         Log.d(LOG_TAG, response.toString());
-                                         Toast.makeText(Register1Activity.this, "Error creando el usuario" + response.toString() , Toast.LENGTH_SHORT).show();
-                                     }
-                                 }
-                                 @Override
-                                 public void onFailure(Call<User> call, Throwable t) {
-                                     Log.d(LOG_TAG, "Error", t);
-                                     Toast.makeText(Register1Activity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
-                                     finish();
-                                 }
-                             });
-                Log.d(LOG_TAG, user.getFirstName());
-                Log.d(LOG_TAG, user.getLastName());
-                Log.d(LOG_TAG, user.getUsername());
-                Log.d(LOG_TAG, String.valueOf(user.getMobilePhone()));
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()){
+                            Intent intent = new Intent(Register1Activity.this, LoginActivity.class);
+                            intent.putExtra(Constants.EXTRA_USERNAME, response.body().getUsername());
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            //TODO validar error
+                            Log.d(LOG_TAG, response.toString());
+                            Toast.makeText(Register1Activity.this, "Error creando el usuario" + response.toString() , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d(LOG_TAG, "Error", t);
+                        Toast.makeText(Register1Activity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
             }
         }
-    }
-    //TODO Eliminar cuando a steven se le de la gana de implementar el maldito date picker
-    private Date getDate(){
-        Date date = null;
-        String year = validateTextField(findViewById(R.id.input_register_year));
-        String month = validateTextField(findViewById(R.id.input_register_month));
-        String day = validateTextField(findViewById(R.id.input_register_day));
-
-        if(day != null && year != null && month != null){
-            Calendar calendar = new GregorianCalendar(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
-            date = calendar.getTime();
-        }
-        return date;
     }
 
     private String getSpinnerValue(Spinner spinner){
@@ -191,4 +191,6 @@ public class Register1Activity extends AppCompatActivity {
         }
         return text;
     }
+
+
 }

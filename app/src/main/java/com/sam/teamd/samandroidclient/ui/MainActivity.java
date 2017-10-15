@@ -66,16 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     User currentUser = response.body();
                     currentUser.setToken(token);
-                    Toast.makeText(MainActivity.this, "Login Exitoso: " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, SendMailActivity.class);
+                    intent.putExtra(Constants.EXTRA_USER, currentUser);
+                    startActivity(intent);
+                    finish();
                 }
                 else if(response.code() == 401) {
-                    Token newToken = Api.getInstance().RefreshToken(token);
+                    Token newToken = Api.getInstance().RefreshToken(token, getApplicationContext());
                     if(newToken != null){
                         loadSession(newToken);
-                    }else{
-                        SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREF_NAME,Context.MODE_PRIVATE);
-                        preferences.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
-                        preferences.edit().remove(Constants.SHARED_PREF_REF).apply();
                     }
                 }
                 else{

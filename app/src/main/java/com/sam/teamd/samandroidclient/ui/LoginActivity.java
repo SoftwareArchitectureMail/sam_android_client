@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
-
         inputUsername = (EditText) findViewById(R.id.input_login_username);
         if(username != null){
             Toast.makeText(this, getString(R.string.user_created_toast), Toast.LENGTH_LONG).show();
@@ -68,7 +67,10 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, response.toString());
                     if(response.isSuccessful()){
                         saveUserToken(response.body().getToken());
-                        Toast.makeText(LoginActivity.this, "Login Exitoso", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, SendMailActivity.class);
+                        intent.putExtra(Constants.EXTRA_USER, response.body());
+                        startActivity(intent);
+                        finish();
                     }else{
                         Toast.makeText(LoginActivity.this, getString(R.string.authentication_error), Toast.LENGTH_SHORT).show();
                     }
