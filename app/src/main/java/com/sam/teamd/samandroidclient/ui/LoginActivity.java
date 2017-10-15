@@ -102,10 +102,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveUserToken(Token token){
         Log.d(LOG_TAG, token.getToken() + "   " + token.getRefresh());
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_preferences_name),Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.shared_token), token.getToken());
-        editor.putString(getString(R.string.shared_refresh_token), token.getRefresh());
+        editor.putString(Constants.SHARED_PREF_TOKEN, token.getToken());
+        editor.putString(Constants.SHARED_PREF_REF, token.getRefresh());
         editor.apply();
     }
 

@@ -15,6 +15,7 @@ import com.sam.teamd.samandroidclient.model.Token;
 import com.sam.teamd.samandroidclient.model.User;
 import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.UserClient;
+import com.sam.teamd.samandroidclient.util.Constants;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
 import retrofit2.Call;
@@ -44,10 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadToken(){
 
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_preferences_name),Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.shared_token), null);
-        String refresh = sharedPref.getString(getString(R.string.shared_refresh_token), null);
-        Log.d(LOG_TAG, token + "   " + refresh);
+        SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
+        String refresh = sharedPref.getString(Constants.SHARED_PREF_REF, null);
         if(token != null && refresh != null) {
             Token userToken = new Token(token, refresh);
             loadSession(userToken);
@@ -62,16 +62,20 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(LOG_TAG, response.toString());
+                Log.d(LOG_TAG, String.valueOf(response.code()));
                 if(response.isSuccessful()) {
                     User currentUser = response.body();
                     currentUser.setToken(token);
-                    Toast.makeText(MainActivity.this, "Login Exitoso" + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Login Exitoso: " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
                 }
                 else if(response.code() == 401) {
                     Token newToken = Api.getInstance().RefreshToken(token);
                     if(newToken != null){
                         loadSession(newToken);
+                    }else{
+                        SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+                        preferences.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
+                        preferences.edit().remove(Constants.SHARED_PREF_REF).apply();
                     }
                 }
                 else{
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Log.d(LOG_TAG, "ERROR REFRESCANDO TOKEN", t);
                 Toast.makeText(MainActivity.this, getString(R.string.conection_error), Toast.LENGTH_SHORT).show();
             }
         });

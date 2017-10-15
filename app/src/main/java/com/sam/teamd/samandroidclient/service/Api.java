@@ -77,6 +77,7 @@ public class Api {
                 }
             });
         }
-        return (newToken.getToken() == null || newToken.getRefresh() == null) ? newToken : null;
+        Log.d(LOG_TAG, "TOKEN: " + newToken.getToken() + "    " + newToken.getRefresh());
+        return (newToken.getToken() == null || newToken.getRefresh() == null) ? null : newToken;
     }
 }

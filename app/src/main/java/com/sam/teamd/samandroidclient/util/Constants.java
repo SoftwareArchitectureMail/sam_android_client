@@ -11,4 +11,9 @@ public class Constants {
     public final static String EXTRA_USER = "user";
     public final static String EXTRA_USERNAME = "username";
 
+    public final static String SHARED_PREF_NAME = "sam_login_data";
+    public final static String SHARED_PREF_TOKEN = "sam_token";
+    public final static String SHARED_PREF_REF = "sam_refresh_token";
+
+
 }
