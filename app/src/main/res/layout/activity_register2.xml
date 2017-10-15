@@ -22,7 +22,7 @@
     <EditText
         android:id="@+id/input_register_username"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="0dp"
@@ -39,7 +39,7 @@
     <EditText
         android:id="@+id/input_register_currentemail"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:ems="10"
@@ -55,8 +55,8 @@
     <EditText
         android:id="@+id/input_register_location"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:ems="10"
@@ -84,7 +84,7 @@
     <EditText
         android:id="@+id/input_register_password"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:ems="10"
@@ -99,7 +99,7 @@
     <EditText
         android:id="@+id/input_register_reppassword"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:ems="10"

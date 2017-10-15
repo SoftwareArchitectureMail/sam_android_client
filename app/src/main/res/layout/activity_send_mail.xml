@@ -7,9 +7,9 @@
     tools:context="com.sam.teamd.samandroidclient.SendMailActivity">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/input_send_mail_recipient"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -18,55 +18,54 @@
         android:ems="10"
         android:hint="@string/send_mail_recipient_input"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editText5"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/input_send_mail_cc"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_send_mail_new_message" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/input_send_mail_subject"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginStart="40dp"
         android:ems="10"
         android:hint="@string/send_mail_subject_input"
         android:inputType="textEmailSubject"
+        app:layout_constraintBottom_toTopOf="@+id/input_send_mail_send_date"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/input_send_mail_send_date"
-        app:layout_constraintTop_toBottomOf="@+id/editText5"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp" />
+        app:layout_constraintTop_toBottomOf="@+id/input_send_mail_cc" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/input_send_mail_message"
         android:layout_width="0dp"
-        android:layout_height="235dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="top"
+        android:layout_height="180dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
+        android:gravity="top"
         android:hint="@string/send_mail_message_input"
         android:inputType="textMultiLine"
         android:selectAllOnFocus="false"
         android:singleLine="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/btn_send_mail_send"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         tools:ignore="Deprecated" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/input_send_mail_cc"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -74,14 +73,14 @@
         android:ems="10"
         android:hint="@string/send_mail_cc_input"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/input_send_mail_subject"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/input_send_mail_recipient" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_send_mail_new_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -93,7 +92,7 @@
         app:layout_constraintHorizontal_bias="0.502" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkbox_send_mail_postpone_sending"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/send_mail_postpone_sending_txt"
@@ -115,28 +114,40 @@
         android:focusable="false"
         android:hint="@string/send_mail_send_date_txt"
         android:inputType="date"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
-        app:layout_constraintLeft_toRightOf="@+id/checkBox2"
-        app:layout_constraintRight_toLeftOf="@+id/input_send_mail_send_hour"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
         android:maxLines="1"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/input_send_mail_message"
+        app:layout_constraintLeft_toRightOf="@+id/checkbox_send_mail_postpone_sending"
+        app:layout_constraintRight_toLeftOf="@+id/input_send_mail_send_hour"
+        app:layout_constraintTop_toBottomOf="@+id/input_send_mail_subject"
         tools:ignore="Deprecated" />
 
     <EditText
         android:id="@+id/input_send_mail_send_hour"
         android:layout_width="0dp"
         android:layout_height="47dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:clickable="true"
         android:editable="false"
         android:ems="10"
         android:focusable="false"
         android:hint="@string/send_mail_send_hour_txt"
         android:inputType="time"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/input_send_mail_send_date"
         app:layout_constraintLeft_toRightOf="@+id/input_send_mail_send_date"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/input_send_mail_send_date"
-        android:layout_marginRight="16dp"
-        tools:ignore="RtlHardcoded"
-        android:layout_marginEnd="16dp" />
+        tools:ignore="Deprecated,RtlHardcoded" />
+
+    <Button
+        android:id="@+id/btn_send_mail_send"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/send_mail_send_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

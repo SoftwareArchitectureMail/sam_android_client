@@ -24,9 +24,7 @@
     <string name="register_username_input">"Nombre de usuario"</string>
     <string name="register_password_input">"Contraseña"</string>
     <string name="register_reppassword_input">"Repetir contraseña"</string>
-    <string name="register_year_input">"Año"</string>
-    <string name="register_month_input">"Mes"</string>
-    <string name="register_day_input">"Día"</string>
+    <string name="register_birth_date_input">"Fecha de nacimiento"</string>
     <string name="register_phone_input">"Teléfono"</string>
     <string name="register_currentmail_input">"Correo actual"</string>
     <string name="register_location_input">"Ubicación"</string>
@@ -40,7 +38,6 @@
     <string name="register_register_txt">"Registro"</string>
     <string name="register_domain_txt">"@sam.com"</string>
     <string name="register_gender_txt">"Genero"</string>
-    <string name="register_birthdate_txt">"Fecha de nacimiento"</string>
     <string name="send_mail_new_message_txt">"Mensaje nuevo"</string>
     <string name="send_mail_postpone_sending_txt">"Posponer envio"</string>
     <string name="send_mail_send_date_txt">"Fecha"</string>
