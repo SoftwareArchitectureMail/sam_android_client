@@ -14,6 +14,7 @@
     <string name="login_enter_btn">"Ingresar"</string>
     <string name="register_next_btn">"Siguiente"</string>
     <string name="register_send_btn">"Enviar"</string>
+    <string name="send_mail_send_btn">"Enviar"</string>
 
     <!-- Input Text -->
     <string name="login_username_input">"Nombre de usuario"</string>
@@ -23,19 +24,24 @@
     <string name="register_username_input">"Nombre de usuario"</string>
     <string name="register_password_input">"Contraseña"</string>
     <string name="register_reppassword_input">"Repetir contraseña"</string>
-    <string name="register_year_input">"Año"</string>
-    <string name="register_month_input">"Mes"</string>
-    <string name="register_day_input">"Día"</string>
+    <string name="register_birth_date_input">"Fecha de nacimiento"</string>
     <string name="register_phone_input">"Teléfono"</string>
     <string name="register_currentmail_input">"Correo actual"</string>
     <string name="register_location_input">"Ubicación"</string>
+    <string name="send_mail_recipient_input">"Para"</string>
+    <string name="send_mail_cc_input">"Cc"</string>
+    <string name="send_mail_subject_input">"Asunto"</string>
+    <string name="send_mail_message_input">"Mensaje"</string>
 
     <!-- Static Text -->
     <string name="login_login_txt">"Iniciar Sesión"</string>
     <string name="register_register_txt">"Registro"</string>
     <string name="register_domain_txt">"@sam.com"</string>
     <string name="register_gender_txt">"Genero"</string>
-    <string name="register_birthdate_txt">"Fecha de nacimiento"</string>
+    <string name="send_mail_new_message_txt">"Mensaje nuevo"</string>
+    <string name="send_mail_postpone_sending_txt">"Posponer envio"</string>
+    <string name="send_mail_send_date_txt">"Fecha"</string>
+    <string name="send_mail_send_hour_txt">"Hora"</string>
 
     <!-- Errors Text -->
     <string name="empty_fielf_error">"Este campo no puede estar vacío "</string>

@@ -40,6 +40,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.Register1Activity" />
         </activity>
+        <activity
+            android:name=".SendMailActivity"
+            android:parentActivityName=".Register2Activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Register2Activity" />
+        </activity>
     </application>
 
 </manifest>
