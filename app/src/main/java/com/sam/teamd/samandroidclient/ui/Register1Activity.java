@@ -114,7 +114,6 @@ public class Register1Activity extends AppCompatActivity {
         gender = getSpinnerValue(spinnerGender);
         errors = (gender == null) || errors;
 
-        //TODO esperar a que steven se le de la gana de implementar el maldito date picker
         birthDate = getDate();
         errors = (birthDate == null) || errors;
 
