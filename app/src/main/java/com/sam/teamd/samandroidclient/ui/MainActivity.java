@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-
     private UserClient userClient;
 
     @Override

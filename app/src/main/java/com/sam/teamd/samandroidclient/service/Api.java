@@ -28,16 +28,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Api {
 
     private static final String LOG_TAG = Api.class.getSimpleName();
+    public static final String BASE_URL = "http://192.168.0.11:4000/";
 
 
     private static Api instance = null;
-    private Context context;
+    private Context context = null;
     private boolean isRefresh = false;
 
-    public static final String BASE_URL = "http://192.168.0.11:4000/";
 
     // Keep yovur services here, build them in buildRetrofit method later
     private UserClient userClient;
+    private MailClient mailClient;
 
 
     public static Api getInstance(Context context) {
@@ -85,11 +86,15 @@ public class Api {
         Retrofit retrofit = builder.build();
 
         this.userClient = retrofit.create(UserClient.class);
+        this.mailClient = retrofit.create(MailClient.class);
 
     }
 
     public UserClient getUserClient() {
         return this.userClient;
+    }
+    public MailClient getMailClient() {
+        return this.mailClient;
     }
 
     public void RefreshToken(){
@@ -123,7 +128,4 @@ public class Api {
             });
         }
     }
-
-
-
 }
