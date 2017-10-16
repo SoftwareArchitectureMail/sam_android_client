@@ -19,6 +19,7 @@ import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class Register1Activity extends AppCompatActivity {
     private UserClient userClient = Api.getInstance().getUserClient();
 
     private Button btnNext;
+    private EditText inputBirthdate;
     private Spinner spinnerGender;
 
     @Override
@@ -121,6 +123,19 @@ public class Register1Activity extends AppCompatActivity {
         }
     }
 
+    private Date getDate() {
+        Date date = null;
+        String text = inputBirthdate.getText().toString();
+        if(text.length() > 0 ){
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy", Locale.US);
+            try {
+                date = format.parse(text);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,19 +172,6 @@ public class Register1Activity extends AppCompatActivity {
                 Log.d(LOG_TAG, String.valueOf(user.getMobilePhone()));
             }
         }
-    }
-    //TODO Eliminar cuando a steven se le de la gana de implementar el maldito date picker
-    private Date getDate(){
-        Date date = null;
-        String year = validateTextField(findViewById(R.id.input_register_year));
-        String month = validateTextField(findViewById(R.id.input_register_month));
-        String day = validateTextField(findViewById(R.id.input_register_day));
-
-        if(day != null && year != null && month != null){
-            Calendar calendar = new GregorianCalendar(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
-            date = calendar.getTime();
-        }
-        return date;
     }
 
     private String getSpinnerValue(Spinner spinner){
