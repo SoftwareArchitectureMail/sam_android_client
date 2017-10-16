@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class FontManager {
 
-    public static final String ROOT = "fonts/",
+    public static final String ROOT = "font/",
             FONTAWESOME = ROOT + "fontawesome-webfont.ttf";
 
     public static Typeface getTypeface(Context context, String font) {
