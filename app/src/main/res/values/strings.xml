@@ -60,6 +60,7 @@
 
     <!-- Toast Msg Text -->
     <string name="user_created_toast">"Usuario creado con exito, por favor ingrese con su contraseña"</string>
+    <string name="mail_sended_toast">"Se envío el correo con exito"</string>
 
 
     <!-- Shared Preferences -->

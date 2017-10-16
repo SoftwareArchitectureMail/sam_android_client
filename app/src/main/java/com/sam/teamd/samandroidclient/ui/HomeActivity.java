@@ -1,5 +1,6 @@
 package com.sam.teamd.samandroidclient.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,16 +13,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sam.teamd.samandroidclient.R;
+import com.sam.teamd.samandroidclient.model.User;
+import com.sam.teamd.samandroidclient.util.Constants;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private  User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
+
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,8 +39,7 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createMail();
             }
         });
 
@@ -43,6 +52,25 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    private void createMail() {
+        Intent intent = new Intent(this, SendMailActivity.class);
+        intent.putExtra(Constants.EXTRA_USER, user);
+        startActivityForResult(intent, Constants.REQ_CODE_SENDMAIL);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case Constants.REQ_CODE_SENDMAIL:
+                if (resultCode == Constants.RESULT_OK) {
+                    Toast.makeText(this, getString(R.string.mail_sended_toast), Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
