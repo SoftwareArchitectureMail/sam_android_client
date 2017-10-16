@@ -15,6 +15,7 @@ import com.sam.teamd.samandroidclient.model.Token;
 import com.sam.teamd.samandroidclient.model.User;
 import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.UserClient;
+import com.sam.teamd.samandroidclient.util.Constants;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
 import retrofit2.Call;
@@ -25,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-
-    private UserClient userClient = Api.getInstance().getUserClient();
+    private UserClient userClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "font/fontawesome-webfont.ttf");
 
@@ -44,10 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadToken(){
 
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_preferences_name),Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.shared_token), null);
-        String refresh = sharedPref.getString(getString(R.string.shared_refresh_token), null);
-        Log.d(LOG_TAG, token + "   " + refresh);
+        SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
+        String refresh = sharedPref.getString(Constants.SHARED_PREF_REF, null);
         if(token != null && refresh != null) {
             Token userToken = new Token(token, refresh);
             loadSession(userToken);
@@ -62,15 +62,17 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(LOG_TAG, response.toString());
+                Log.d(LOG_TAG, String.valueOf(response.code()));
                 if(response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Login Exitoso" + response.body().getUsername(), Toast.LENGTH_SHORT).show();
+                    User currentUser = response.body();
+                    currentUser.setToken(token);
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    intent.putExtra(Constants.EXTRA_USER, currentUser);
+                    startActivity(intent);
+                    finish();
                 }
                 else if(response.code() == 401) {
-                    Token newToken = Api.getInstance().RefreshToken(token);
-                    if(newToken != null){
-                        loadSession(newToken);
-                    }
+                    loadToken();
                 }
                 else{
                     Toast.makeText(MainActivity.this, getString(R.string.conection_error), Toast.LENGTH_SHORT).show();
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Log.d(LOG_TAG, "ERROR REFRESCANDO TOKEN", t);
                 Toast.makeText(MainActivity.this, getString(R.string.conection_error), Toast.LENGTH_SHORT).show();
             }
         });

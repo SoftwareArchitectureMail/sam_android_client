@@ -40,6 +40,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.Register1Activity" />
         </activity>
+        <activity
+            android:name=".ui.SendMailActivity"
+            android:parentActivityName=".ui.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
