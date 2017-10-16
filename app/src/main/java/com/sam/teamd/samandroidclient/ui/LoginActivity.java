@@ -29,12 +29,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private EditText inputUsername, inputPassword;
-    private UserClient userClient = Api.getInstance().getUserClient();
+    private UserClient userClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         Intent intent = getIntent();
         String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, response.toString());
                     if(response.isSuccessful()){
                         saveUserToken(response.body().getToken());
-                        Intent intent = new Intent(LoginActivity.this, SendMailActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra(Constants.EXTRA_USER, response.body());
                         startActivity(intent);
                         finish();

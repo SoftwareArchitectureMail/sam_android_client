@@ -42,10 +42,19 @@
         </activity>
         <activity
             android:name=".ui.SendMailActivity"
-            android:parentActivityName=".Register2Activity">
+            android:parentActivityName=".ui.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Register2Activity" />
+                android:value=".ui.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

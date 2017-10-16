@@ -27,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
 
-    private UserClient userClient = Api.getInstance().getUserClient();
+    private UserClient userClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "font/fontawesome-webfont.ttf");
 
@@ -66,16 +67,13 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     User currentUser = response.body();
                     currentUser.setToken(token);
-                    Intent intent = new Intent(MainActivity.this, SendMailActivity.class);
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     intent.putExtra(Constants.EXTRA_USER, currentUser);
                     startActivity(intent);
                     finish();
                 }
                 else if(response.code() == 401) {
-                    Token newToken = Api.getInstance().RefreshToken(token, getApplicationContext());
-                    if(newToken != null){
-                        loadSession(newToken);
-                    }
+                    loadToken();
                 }
                 else{
                     Toast.makeText(MainActivity.this, getString(R.string.conection_error), Toast.LENGTH_SHORT).show();

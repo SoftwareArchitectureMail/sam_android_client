@@ -1,4 +1,4 @@
-package com.sam.teamd.samandroidclient.ui;
+package com.sam.teamd.samandroidclient.util;
 
 
 import android.content.Context;

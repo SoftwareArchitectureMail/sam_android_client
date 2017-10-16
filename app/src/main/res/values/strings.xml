@@ -61,9 +61,6 @@
     <!-- Toast Msg Text -->
     <string name="user_created_toast">"Usuario creado con exito, por favor ingrese con su contraseña"</string>
 
-    <!-- url Text -->
-    <string name="base_url">"http://192.168.0.11:4000/"</string>
-
 
     <!-- Shared Preferences -->
     <string name="shared_preferences_name">"sam_login_data"</string>

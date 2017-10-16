@@ -33,7 +33,7 @@ import retrofit2.Response;
 public class Register1Activity extends AppCompatActivity {
 
     private static final String LOG_TAG = Register1Activity.class.getSimpleName();
-    private UserClient userClient = Api.getInstance().getUserClient();
+    private UserClient userClient;
 
 
     private Button btnNext;
@@ -44,6 +44,8 @@ public class Register1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
+
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         // Calendar for date picker
         final Calendar register_birthdate_calendar = Calendar.getInstance();

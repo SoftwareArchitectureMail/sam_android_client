@@ -25,7 +25,7 @@ import retrofit2.Response;
 public class Register2Activity extends AppCompatActivity {
 
     private static final String LOG_TAG = Register2Activity.class.getSimpleName();
-    private UserClient userClient = Api.getInstance().getUserClient();
+    private UserClient userClient;
 
     private Button btnSend;
     private User user;
@@ -37,6 +37,8 @@ public class Register2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
+
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
 
@@ -60,7 +62,7 @@ public class Register2Activity extends AppCompatActivity {
 
     private void validateUsername() {
         String username = inputUsername.getText().toString();
-        if(username.length() <= 5){
+        if(username.length() < 5){
             validUsername = false;
             inputUsername.setError(getString(R.string.username_short_error));
         }else{
