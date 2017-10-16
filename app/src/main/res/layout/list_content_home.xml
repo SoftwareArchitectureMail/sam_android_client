@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/icons_container"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textSize="45sp"
+        android:textColor="#9b59b6"
+        android:text="@string/fa_star"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,11 +21,10 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/static_list_content_home_urgent"
-            android:layout_width="14dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:text="@string/fa_exclamation_circle" />
+            android:gravity="center"
+            android:text="@string/fa_exclamation_circle" />
 
     </LinearLayout>
 
@@ -62,16 +71,13 @@
             android:id="@+id/static_list_content_home_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20px"
-            tools:text="@string/txt_date"/>
+            android:textSize="20px" />
 
         <TextView
             android:id="@+id/static_list_content_home_attachment"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:text="@string/fa_exclamation_circle" />
+            android:text="@string/fa_exclamation_circle" />
     </LinearLayout>
 
 

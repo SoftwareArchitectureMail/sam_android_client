@@ -1,11 +1,14 @@
 package com.sam.teamd.samandroidclient.ui;
 
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+/**
+ * Created by yessica on 16/10/17.
+ */
 
 public class FontManager {
 
@@ -27,5 +30,4 @@ public class FontManager {
             ((TextView) v).setTypeface(typeface);
         }
     }
-
 }
