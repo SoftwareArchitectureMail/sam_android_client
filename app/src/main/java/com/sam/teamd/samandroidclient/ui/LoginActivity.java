@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.Login;
 import com.sam.teamd.samandroidclient.model.Token;
@@ -59,7 +60,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login (){
         if (checkFields()){
-            Login login = new Login(inputUsername.getText().toString(), inputPassword.getText().toString());
+
+            String deviceId = FirebaseInstanceId.getInstance().getToken();
+
+            Login login = new Login(inputUsername.getText().toString(), inputPassword.getText().toString(),
+                deviceId );
             Call<User> call = userClient.login(login);
 
             call.enqueue(new Callback<User>() {
