@@ -13,6 +13,7 @@ public class Constants {
     public final static int RESULT_FAIL = 100;
 
     public final static String EXTRA_USER = "user";
+    public final static String EXTRA_MAIL = "mail";
     public final static String EXTRA_USERNAME = "username";
 
     public final static String SHARED_PREF_NAME = "sam_login_data";

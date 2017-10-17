@@ -87,6 +87,14 @@ public class Mail {
         this.urgent = urgent;
     }
 
+    public String getCc() {
+        return cc;
+    }
+
+    public Date getSentDate() {
+        return sentDate;
+    }
+
     public String getId() {
         return id;
     }
