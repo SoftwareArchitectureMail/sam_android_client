@@ -127,6 +127,9 @@ public class MailAdapter extends BaseAdapter {
         if(data.get(position).isUrgent()){
             holder.icon_urgent.setText(context.getString(R.string.fa_exclamation_circle));
         }
+        if(data.get(position).getSentDate() != null){
+            holder.textView_date.setText(data.get(position).getSentDate().toString());
+        }
 
         //holder.textView_date.setText();
         //holder.icon_urgent.setText();

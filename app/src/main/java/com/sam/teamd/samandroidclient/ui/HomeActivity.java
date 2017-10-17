@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.view.MenuInflater;
@@ -74,13 +75,13 @@ public class HomeActivity extends AppCompatActivity
         user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
 
         currentType = MAIL_INBOX;
-        loadEmails("");
+        //loadEmails("");
 
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.list_home), iconFont);
 
-        List<Mail> mails = new ArrayList<Mail>();
+        mails = new ArrayList<Mail>();
         ListView listHome = (ListView)findViewById(R.id.list_home);
         MailAdapter adapter = new MailAdapter(this, mails);
         listHome.setAdapter(adapter);
