@@ -64,18 +64,19 @@
 
     <TextView
         android:id="@+id/txt_view_mail_message_body"
-        android:layout_width="324dp"
-        android:layout_height="339dp"
-        android:text="@string/view_mail_message_body_txt"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_sent_date"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="320dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        app:layout_constraintHorizontal_bias="0.0" />
+        android:text="@string/view_mail_message_body_txt"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_sent_date"
+        tools:layout_editor_absoluteY="173dp" />
 
     <TextView
         android:id="@+id/txt_view_mail_message_sent_date"
