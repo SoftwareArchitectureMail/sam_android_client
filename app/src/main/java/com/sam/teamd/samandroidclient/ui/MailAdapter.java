@@ -27,10 +27,12 @@ public class MailAdapter extends BaseAdapter {
 
     static class ViewHolder
     {
-        TextView sender;
-        TextView subject;
-        TextView content;
-        TextView date;
+        TextView textView_sender;
+        TextView textView_subject;
+        TextView textView_content;
+        TextView textView_date;
+        TextView icon_urgent;
+        TextView icon_attachment;
     }
 
     public MailAdapter(Context c, ArrayList<Mail> d)
@@ -99,23 +101,29 @@ public class MailAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
 
-            holder.sender = (TextView) convertView
-                    .findViewById(R.id.sender);
-            holder.subject = (TextView) convertView
-                    .findViewById(R.id.subject);
-            holder.content = (TextView) convertView
-                    .findViewById(R.id.content);
-            holder.date = (TextView) convertView
-                    .findViewById(R.id.date);
+            holder.textView_sender = (TextView) convertView
+                    .findViewById(R.id.textView_sender);
+            holder.textView_subject = (TextView) convertView
+                    .findViewById(R.id.textView_subject);
+            holder.textView_content = (TextView) convertView
+                    .findViewById(R.id.textView_content);
+            holder.textView_date = (TextView) convertView
+                    .findViewById(R.id.textView_date);
+            holder.icon_urgent = (TextView) convertView
+                    .findViewById(R.id.icon_urgent);
+            holder.icon_attachment = (TextView) convertView
+                    .findViewById(R.id.icon_attachment);
             convertView.setTag(holder);
 
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.sender.setText(data.get(position).getSender());
-        holder.subject.setText(data.get(position).getSubject());
-        holder.content.setText(data.get(position).getMessageBody());
-        //holder.date.setText(data.get(position).getDate());
+        holder.textView_sender.setText(data.get(position).getSender());
+        holder.textView_subject.setText(data.get(position).getSubject());
+        holder.textView_content.setText(data.get(position).getMessageBody());
+        //holder.textView_date.setText(data.get(position).);
+        //holder.icon_urgent.setText(data.get(position).);
+        //holder.icon_attachment.setText(data.get(position).);
 
 
         return convertView;
