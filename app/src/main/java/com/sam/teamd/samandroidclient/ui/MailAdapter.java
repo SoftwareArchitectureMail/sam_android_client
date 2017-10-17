@@ -12,6 +12,7 @@ import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.Mail;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yessica on 16/10/17.
@@ -22,7 +23,7 @@ public class MailAdapter extends BaseAdapter {
     private static final String TAG = "CustomAdapter";
     private static int convertViewCounter = 0;
 
-    private ArrayList<Mail> data;
+    private List<Mail> data;
     private LayoutInflater inflater = null;
 
     static class ViewHolder
@@ -35,7 +36,7 @@ public class MailAdapter extends BaseAdapter {
         TextView icon_attachment;
     }
 
-    public MailAdapter(Context c, ArrayList<Mail> d)
+    public MailAdapter(Context c, List<Mail> d)
     {
         Log.v(TAG, "Constructing CustomAdapter");
         this.data = d;
@@ -121,9 +122,10 @@ public class MailAdapter extends BaseAdapter {
         holder.textView_sender.setText(data.get(position).getSender());
         holder.textView_subject.setText(data.get(position).getSubject());
         holder.textView_content.setText(data.get(position).getMessageBody());
-        //holder.textView_date.setText(data.get(position).);
-        //holder.icon_urgent.setText(data.get(position).);
-        //holder.icon_attachment.setText(data.get(position).);
+
+        //holder.textView_date.setText();
+        //holder.icon_urgent.setText();
+        //holder.icon_attachment.setText();
 
 
         return convertView;

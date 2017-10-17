@@ -22,20 +22,31 @@ import com.sam.teamd.samandroidclient.model.Mail;
 import com.sam.teamd.samandroidclient.util.FontManager;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        ArrayList<Mail> mails = new ArrayList<Mail>();
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        FontManager.markAsIconContainer(findViewById(R.id.list_home), iconFont);
+
+        List<Mail> mails = new ArrayList<Mail>();
         ListView listHome = (ListView)findViewById(R.id.list_home);
         MailAdapter adapter = new MailAdapter(this, mails);
         listHome.setAdapter(adapter);
-        
+
+        mails.add(new Mail("1", "lola", "asunto", "jkasdka jkashdka jasdhaks", "jhsjdh",null, FALSE));
+        mails.add(new Mail("2", "soos", "mipis", "jkasdka jkashdka jasdhaks", "jhsjdh",null, TRUE));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,9 +67,6 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(findViewById(R.id.list_home), iconFont);
 
     }
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/list_home"
-    android:padding="2dp">
+    android:orientation="horizontal"
+    android:padding="2dp"
+    android:id="@+id/list_home">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/icon_urgent"
@@ -24,7 +24,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView_sender"
@@ -62,7 +62,7 @@
 
         <TextView
             android:id="@+id/textView_date"
-            android:layout_width="match_parent"
+            android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:text="@string/txt_date"
             android:textSize="20px" />
@@ -74,6 +74,4 @@
             android:text="@string/fa_paperclip" />
     </LinearLayout>
 
-
-
-</RelativeLayout>
+</LinearLayout>
