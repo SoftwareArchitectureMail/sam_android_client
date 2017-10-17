@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sam.teamd.samandroidclient.ui.ViewMailActivity">
+
+    <TextView
+        android:id="@+id/txt_view_mail_message_subject"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/view_mail_message_subject_txt"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_view_mail_message_sender"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/view_mail_message_sender_txt"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_view_mail_message_recipient"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_subject"
+        app:layout_constraintVertical_bias="0.6"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/txt_view_mail_message_recipient"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="@string/view_mail_message_recipient_txt"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_view_mail_message_cc"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_view_mail_message_sender"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_sender" />
+
+    <TextView
+        android:id="@+id/txt_view_mail_message_cc"
+        android:layout_width="22dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="0dp"
+        android:text="@string/view_mail_message_cc_txt"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_view_mail_message_sent_date"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_view_mail_message_recipient"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_recipient"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/txt_view_mail_message_body"
+        android:layout_width="324dp"
+        android:layout_height="339dp"
+        android:text="@string/view_mail_message_body_txt"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_sent_date"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txt_view_mail_message_sent_date"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/view_mail_message_sent_date_txt"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_view_mail_message_body"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_view_mail_message_cc"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_mail_message_cc" />
+</android.support.constraint.ConstraintLayout>
