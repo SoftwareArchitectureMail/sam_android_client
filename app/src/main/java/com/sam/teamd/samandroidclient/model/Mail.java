@@ -3,13 +3,14 @@ package com.sam.teamd.samandroidclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by david on 10/10/17.
  */
 
-public class Mail {
+public class Mail implements Serializable {
 
     private String id;
     private String recipient;
@@ -23,12 +24,14 @@ public class Mail {
     @SerializedName("message_body")
     private String messageBody;
 
-    private String attachment;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient String attachment;
 
     @SerializedName("sent_date")
     private Date sentDate;
 
-    @Expose(serialize = false)
+    @Expose(serialize = false, deserialize = false)
     private boolean hasAttachment;
 
     private boolean read;

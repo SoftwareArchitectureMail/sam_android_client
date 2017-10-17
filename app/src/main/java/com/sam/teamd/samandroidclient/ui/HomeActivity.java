@@ -112,7 +112,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void loadEmails(final String options){
+
+    private Call<List<Mail>> getMultipleCall(String options){
         Map<String, String> queryOptions = queryOptions(options);
         String token = loadToken();
         Call<List<Mail>> call;
@@ -130,7 +131,12 @@ public class HomeActivity extends AppCompatActivity
                 call = mailClient.getInbox(token, queryOptions);
                 break;
         }
+        return call;
+    }
 
+
+    private void loadEmails(final String options){
+        Call<List<Mail>> call = getMultipleCall(options);
         call.enqueue(new Callback<List<Mail>>() {
             @Override
             public void onResponse(Call<List<Mail>> call, Response<List<Mail>> response) {
@@ -138,9 +144,6 @@ public class HomeActivity extends AppCompatActivity
                 if(response.isSuccessful()){
                     mails = response.body();
                     Log.d(LOG_TAG, String.valueOf(mails.size()));
-                    for(Mail m : mails){
-                        Log.d(LOG_TAG, "Mail:" + m.getSubject());
-                    }
                 }else if(response.code() == 401){
                     loadEmails(options);
                 }
@@ -156,6 +159,51 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
+
+    private Call<Mail> getSingleCall(String id){
+        String token = loadToken();
+        Call<Mail> call;
+        switch (currentType){
+            case MAIL_INBOX:
+                call = mailClient.getSingleMail(token, id);
+                break;
+            case MAIL_SENT:
+                call = mailClient.getSingleSent(token, id);
+                break;
+            case MAIL_DRAFT:
+                call = mailClient.getSingleDraft(token, id);
+                break;
+            default:
+                call = mailClient.getSingleMail(token, id);
+                break;
+        }
+        return call;
+    }
+
+    private void loadEmail(final String id){
+        Call<Mail> call = getSingleCall(id);
+        call.enqueue(new Callback<Mail>() {
+            @Override
+            public void onResponse(Call<Mail> call, Response<Mail> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(HomeActivity.this, ViewMailActivity.class);
+                    intent.putExtra(Constants.EXTRA_MAIL, response.body());
+                    startActivityForResult(intent, Constants.REQ_CODE_VIEWMAIL);
+                }else if(response.code() == 401){
+                    loadEmails(id);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cargar el correo" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Mail> call, Throwable t) {
+                Log.d(LOG_TAG, "Error al cargar el correo", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 
     @Override

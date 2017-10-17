@@ -8,6 +8,7 @@ public class Constants {
 
     public final static int REQ_CODE_REG2 = 1;
     public final static int REQ_CODE_SENDMAIL = 2;
+    public final static int REQ_CODE_VIEWMAIL = 2;
 
     public final static int RESULT_OK = 99;
     public final static int RESULT_FAIL = 100;
