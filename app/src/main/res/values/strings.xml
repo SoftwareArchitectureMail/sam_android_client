@@ -48,6 +48,14 @@
     <string name="send_mail_postpone_sending_txt">"Posponer envio"</string>
     <string name="send_mail_send_date_txt">"Fecha"</string>
     <string name="send_mail_send_hour_txt">"Hora"</string>
+    <string name="view_mail_message_subject_txt">"Asunto"</string>
+    <string name="view_mail_message_sender_txt">"Enviado por"</string>
+    <string name="view_mail_message_recipient_txt">"Para "</string>
+    <string name="view_mail_message_cc_txt">"Cc"</string>
+    <string name="view_mail_message_sent_date_txt">"Hora de envío"</string>
+    <string name="view_mail_message_body_txt">"Mensaje"</string>
+    <string name="send_mail_view_confirmation_txt">"Confirmación de lectura"</string>
+    <string name="send_mail_urgent_txt">"Urgente"</string>
 
     <!-- Errors Text -->
     <string name="empty_fielf_error">"Este campo no puede estar vacío "</string>
