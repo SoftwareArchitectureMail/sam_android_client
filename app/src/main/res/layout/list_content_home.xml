@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/icons_container"
+    android:id="@+id/list_home"
     android:padding="2dp">
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/urgent"
+            android:id="@+id/icon_urgent"
             android:layout_width="14dp"
             android:layout_height="wrap_content"
             android:textColor="#FE2E2E"
@@ -27,7 +27,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/sender"
+            android:id="@+id/textView_sender"
             android:layout_width="227dp"
             android:layout_height="wrap_content"
             android:width="210sp"
@@ -37,7 +37,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/subject"
+            android:id="@+id/texView_subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
@@ -45,7 +45,7 @@
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/textView_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
@@ -61,14 +61,14 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/textView_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_date"
             android:textSize="20px" />
 
         <TextView
-            android:id="@+id/attachment"
+            android:id="@+id/icon_attachment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fa_paperclip" />

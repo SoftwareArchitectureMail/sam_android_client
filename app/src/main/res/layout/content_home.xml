@@ -8,6 +8,10 @@
     tools:context="com.sam.teamd.samandroidclient.ui.LoginActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <include layout="@layout/list_content_home"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_home">
+    </ListView>
 
 </android.support.constraint.ConstraintLayout>

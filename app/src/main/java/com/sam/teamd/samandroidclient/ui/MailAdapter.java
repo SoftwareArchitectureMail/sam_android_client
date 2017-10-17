@@ -92,7 +92,7 @@ public class MailAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            //convertView = inflater.inflate(R.layout.list_row_posts, null);
+            convertView = inflater.inflate(R.layout.list_content_home, null);
 
             convertViewCounter++;
             Log.v(TAG, convertViewCounter + " convertViews have been created");
