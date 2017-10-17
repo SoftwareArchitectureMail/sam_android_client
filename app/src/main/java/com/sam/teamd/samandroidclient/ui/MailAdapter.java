@@ -25,6 +25,7 @@ public class MailAdapter extends BaseAdapter {
 
     private List<Mail> data;
     private LayoutInflater inflater = null;
+    private Context context;
 
     static class ViewHolder
     {
@@ -40,6 +41,7 @@ public class MailAdapter extends BaseAdapter {
     {
         Log.v(TAG, "Constructing CustomAdapter");
         this.data = d;
+        context = c;
         inflater = LayoutInflater.from(c);
     }
 
@@ -122,6 +124,9 @@ public class MailAdapter extends BaseAdapter {
         holder.textView_sender.setText(data.get(position).getSender());
         holder.textView_subject.setText(data.get(position).getSubject());
         holder.textView_content.setText(data.get(position).getMessageBody());
+        if(data.get(position).isUrgent()){
+            holder.icon_urgent.setText(context.getString(R.string.fa_exclamation_circle));
+        }
 
         //holder.textView_date.setText();
         //holder.icon_urgent.setText();
