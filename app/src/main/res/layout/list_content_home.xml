@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:id="@+id/list_home"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="2dp"
-    android:id="@+id/list_home">
+    android:padding="2dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,9 +14,9 @@
 
         <TextView
             android:id="@+id/icon_urgent"
+            android:layout_width="31dp"
+            android:layout_height="wrap_content"
             android:text="@string/fa_exclamation_circle"
-            android:layout_width="30px"
-            android:layout_height="30px"
             android:textColor="#FE2E2E" />
 
     </LinearLayout>
@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/textView_sender"
-            android:layout_width="227dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:width="210sp"
             android:maxWidth="210sp"
@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/textView_subject"
-            android:layout_width="match_parent"
+            android:layout_width="244dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="35px"
@@ -48,9 +48,9 @@
             android:id="@+id/textView_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="10"
             android:textColor="@android:color/black"
             android:textSize="30px"
-            android:maxLength="10"
             android:textStyle="normal" />
 
     </LinearLayout>
@@ -58,7 +58,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView_date"
