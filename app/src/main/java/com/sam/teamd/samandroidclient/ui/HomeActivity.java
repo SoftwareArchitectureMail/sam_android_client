@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.view.MenuInflater;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
     private  User user;
     private int currentType;
     private List<Mail> mails;
+    private ListView listHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,19 +77,20 @@ public class HomeActivity extends AppCompatActivity
         user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
 
         currentType = MAIL_INBOX;
-        //loadEmails("");
+        loadEmails("");
 
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.list_home), iconFont);
 
-        mails = new ArrayList<Mail>();
-        ListView listHome = (ListView)findViewById(R.id.list_home);
-        MailAdapter adapter = new MailAdapter(this, mails);
-        listHome.setAdapter(adapter);
+        listHome = (ListView)findViewById(R.id.list_home);
+        listHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                loadEmail(mails.get(position).getId());
+            }
+        });
 
-        mails.add(new Mail("1", "lola", "asunto", "jkasdka jkashdka jasdhaks", "jhsjdh",null, FALSE));
-        mails.add(new Mail("2", "soos", "mipis", "jkasdka jkashdka jasdhaks", "jhsjdh",null, TRUE));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -162,7 +165,8 @@ public class HomeActivity extends AppCompatActivity
                 Log.d(LOG_TAG, response.toString());
                 if(response.isSuccessful()){
                     mails = response.body();
-                    Log.d(LOG_TAG, String.valueOf(mails.size()));
+                    MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
+                    listHome.setAdapter(adapter);
                 }else if(response.code() == 401){
                     loadEmails(options);
                 }
@@ -294,12 +298,17 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            // Handle the camera action
+            currentType = MAIL_INBOX;
+            loadEmails("");
         } else if (id == R.id.nav_sent) {
-
+            currentType = MAIL_SENT;
+            loadEmails("");
         } else if (id == R.id.nav_draft) {
-
+            currentType = MAIL_DRAFT;
+            loadEmails("");
         } else if (id == R.id.nav_important) {
+            currentType = MAIL_INBOX;
+            loadEmails(Constants.QUERY_PARAMS_URGENT);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

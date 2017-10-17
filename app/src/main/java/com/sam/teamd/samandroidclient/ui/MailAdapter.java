@@ -1,6 +1,8 @@
 package com.sam.teamd.samandroidclient.ui;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ public class MailAdapter extends BaseAdapter {
     private List<Mail> data;
     private LayoutInflater inflater = null;
     private Context context;
+    private Typeface fontAwesomeFont;
 
     static class ViewHolder
     {
@@ -40,6 +43,7 @@ public class MailAdapter extends BaseAdapter {
     public MailAdapter(Context c, List<Mail> d)
     {
         Log.v(TAG, "Constructing CustomAdapter");
+        fontAwesomeFont = Typeface.createFromAsset(c.getAssets(), "font/fontawesome-webfont.ttf");
         this.data = d;
         context = c;
         inflater = LayoutInflater.from(c);
@@ -126,6 +130,7 @@ public class MailAdapter extends BaseAdapter {
         holder.textView_content.setText(data.get(position).getMessageBody());
         if(data.get(position).isUrgent()){
             holder.icon_urgent.setText(context.getString(R.string.fa_exclamation_circle));
+            holder.icon_urgent.setTypeface(fontAwesomeFont);
         }
         if(data.get(position).getSentDate() != null){
             holder.textView_date.setText(data.get(position).getSentDate().toString());
