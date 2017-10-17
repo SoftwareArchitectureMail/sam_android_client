@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.User;
 import com.sam.teamd.samandroidclient.util.Constants;
+import com.sam.teamd.samandroidclient.util.FontManager;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
