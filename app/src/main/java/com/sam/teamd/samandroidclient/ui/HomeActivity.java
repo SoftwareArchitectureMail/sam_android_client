@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.view.MenuInflater;
 import android.view.View;
@@ -31,6 +33,8 @@ import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.MailClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 import com.sam.teamd.samandroidclient.util.FontManager;
+import com.sam.teamd.samandroidclient.model.Mail;
+import com.sam.teamd.samandroidclient.util.FontManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +44,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
     private  User user;
     private int currentType;
     private List<Mail> mails;
+    private ListView listHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,19 @@ public class HomeActivity extends AppCompatActivity
 
         currentType = MAIL_INBOX;
         loadEmails("");
+
+
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        FontManager.markAsIconContainer(findViewById(R.id.list_home), iconFont);
+
+        listHome = (ListView)findViewById(R.id.list_home);
+        listHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                loadEmail(mails.get(position).getId());
+            }
+        });
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,8 +112,6 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(findViewById(R.id.icons_container), iconFont);
     }
 
     private void createMail() {
@@ -143,7 +165,8 @@ public class HomeActivity extends AppCompatActivity
                 Log.d(LOG_TAG, response.toString());
                 if(response.isSuccessful()){
                     mails = response.body();
-                    Log.d(LOG_TAG, String.valueOf(mails.size()));
+                    MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
+                    listHome.setAdapter(adapter);
                 }else if(response.code() == 401){
                     loadEmails(options);
                 }
@@ -275,12 +298,17 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inbox) {
-            // Handle the camera action
+            currentType = MAIL_INBOX;
+            loadEmails("");
         } else if (id == R.id.nav_sent) {
-
+            currentType = MAIL_SENT;
+            loadEmails("");
         } else if (id == R.id.nav_draft) {
-
+            currentType = MAIL_DRAFT;
+            loadEmails("");
         } else if (id == R.id.nav_important) {
+            currentType = MAIL_INBOX;
+            loadEmails(Constants.QUERY_PARAMS_URGENT);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

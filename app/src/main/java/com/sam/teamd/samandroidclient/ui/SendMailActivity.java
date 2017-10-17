@@ -144,6 +144,7 @@ public class SendMailActivity extends AppCompatActivity {
         boolean errors = false;
         String recipient, subject, text, cc;
         Date date = null;
+        Boolean urgent, confirmation;
 
         recipient  = validateTextField(findViewById(R.id.input_send_mail_recipient));
         errors = (recipient == null) || errors;
@@ -161,14 +162,18 @@ public class SendMailActivity extends AppCompatActivity {
             errors = (date == null) || errors;
         }
 
+        urgent = getCheckBox((CheckBox) findViewById(R.id.checkbox_send_mail_urgent));
+        confirmation = getCheckBox((CheckBox) findViewById(R.id.checkbox_send_mail_view_confirmation));
+
+
 
         if(!errors){
             Mail mail;
             if(chkboxPostpone.isChecked()){
                 //TODO Validar los booleanos
-                mail = new Mail(recipient, user.getUsername(), cc, subject, text, date, true, false, false);
+                mail = new Mail(recipient, user.getUsername(), cc, subject, text, date, true, urgent, confirmation);
             }else{
-                mail = new Mail(recipient, user.getUsername(), cc, subject, text,  false, false, false);
+                mail = new Mail(recipient, user.getUsername(), cc, subject, text,  false, urgent, confirmation);
             }
 
             sendMail(mail);
@@ -208,6 +213,10 @@ public class SendMailActivity extends AppCompatActivity {
                 Toast.makeText(SendMailActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private boolean getCheckBox(CheckBox chk){
+        return chk.isChecked();
     }
 
     private String loadToken(){
