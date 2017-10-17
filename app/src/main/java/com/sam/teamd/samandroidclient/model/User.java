@@ -26,6 +26,7 @@ public class User implements Serializable{
 
     @SerializedName("mobile_phone")
     private long mobilePhone;
+
     @Expose(serialize = false)
     private int location;
     private int gender;

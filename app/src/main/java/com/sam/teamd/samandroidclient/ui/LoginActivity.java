@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.Login;
 import com.sam.teamd.samandroidclient.model.Token;
@@ -29,12 +30,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private EditText inputUsername, inputPassword;
-    private UserClient userClient = Api.getInstance().getUserClient();
+    private UserClient userClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         Intent intent = getIntent();
         String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
@@ -58,7 +60,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login (){
         if (checkFields()){
-            Login login = new Login(inputUsername.getText().toString(), inputPassword.getText().toString());
+
+            String deviceId = FirebaseInstanceId.getInstance().getToken();
+
+            Login login = new Login(inputUsername.getText().toString(), inputPassword.getText().toString(),
+                deviceId );
             Call<User> call = userClient.login(login);
 
             call.enqueue(new Callback<User>() {
@@ -67,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, response.toString());
                     if(response.isSuccessful()){
                         saveUserToken(response.body().getToken());
-                        Intent intent = new Intent(LoginActivity.this, SendMailActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra(Constants.EXTRA_USER, response.body());
                         startActivity(intent);
                         finish();

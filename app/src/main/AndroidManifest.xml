@@ -27,14 +27,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
-
-        <activity android:name=".ui.Register1Activity"
+        <activity
+            android:name=".ui.Register1Activity"
             android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.Register2Activity"
+        <activity
+            android:name=".ui.Register2Activity"
             android:parentActivityName=".ui.Register1Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -42,15 +43,38 @@
         </activity>
         <activity
             android:name=".ui.SendMailActivity"
-            android:parentActivityName=".Register2Activity">
+            android:parentActivityName=".ui.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Register2Activity" />
+                android:value=".ui.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
             android:name=".ui.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <service
+            android:name=".service.Firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.Firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ui.ViewMailActivity"
+            android:parentActivityName=".ui.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.HomeActivity" />
         </activity>
     </application>
 

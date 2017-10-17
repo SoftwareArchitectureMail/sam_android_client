@@ -1,46 +1,74 @@
 package com.sam.teamd.samandroidclient.model;
 
-import java.util.GregorianCalendar;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by david on 10/10/17.
  */
 
-public class Mail {
+public class Mail implements Serializable {
 
     private String id;
     private String recipient;
     private String sender;
     private String cc;
-    private String distribution_list;
+
+    @SerializedName("distribution_list")
+    private String distributionList;
     private String subject;
+
+    @SerializedName("message_body")
     private String messageBody;
-    private String attachment;
 
-    private GregorianCalendar sentDate;
 
+    @Expose(serialize = false, deserialize = false)
+    private transient String attachment;
+
+    @SerializedName("sent_date")
+    private Date sentDate;
+
+    @Expose(serialize = false, deserialize = false)
     private boolean hasAttachment;
+
     private boolean read;
     private boolean draft;
     private boolean urgent;
     private boolean confirmation;
 
-    public Mail(String recipient, String cc, String subject, String messageBody, String attachment,
-                GregorianCalendar sentDate, boolean draft, boolean urgent, boolean confirmation) {
+
+    public Mail(String recipient, String sender, String cc, String subject, String messageBody,
+                Date sentDate, boolean draft, boolean urgent, boolean confirmation) {
         this.recipient = recipient;
+        this.sender = sender;
         this.cc = cc;
         this.subject = subject;
         this.messageBody = messageBody;
-        this.attachment = attachment;
         this.sentDate = sentDate;
         this.draft = draft;
         this.urgent = urgent;
         this.confirmation = confirmation;
     }
 
+    public Mail(String recipient, String sender, String cc, String subject, String messageBody,
+                boolean draft, boolean urgent, boolean confirmation) {
+        this.recipient = recipient;
+        this.sender = sender;
+        this.cc = cc;
+        this.subject = subject;
+        this.messageBody = messageBody;
+        this.draft = draft;
+        this.urgent = urgent;
+        this.confirmation = confirmation;
+    }
+
+
 
     public Mail(String id, String sender, String subject, String messageBody, String attachment,
-                GregorianCalendar sentDate, boolean urgent) {
+                Date sentDate, boolean urgent) {
         this.id = id;
         this.sender = sender;
         this.subject = subject;
@@ -51,7 +79,7 @@ public class Mail {
     }
 
     public Mail(String id, String sender, String subject, String messageBody, String attachment,
-                GregorianCalendar sentDate, boolean read, boolean urgent) {
+                Date sentDate, boolean read, boolean urgent) {
         this.id = id;
         this.sender = sender;
         this.subject = subject;
@@ -60,6 +88,14 @@ public class Mail {
         this.sentDate = sentDate;
         this.read = read;
         this.urgent = urgent;
+    }
+
+    public String getCc() {
+        return cc;
+    }
+
+    public Date getSentDate() {
+        return sentDate;
     }
 
     public String getId() {

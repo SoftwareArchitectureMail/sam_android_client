@@ -14,11 +14,10 @@ public class Login {
     @SerializedName("device_id")
     private String deviceId;
 
-    public Login(String username, String password) {
+    public Login(String username, String password, String deviceId) {
         this.username = username;
         this.password = password;
-        //TODO Poner device ID
-        this.deviceId = "123456";
+        this.deviceId = deviceId;
     }
 
     public String getUsername() {

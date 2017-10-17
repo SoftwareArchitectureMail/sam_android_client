@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1067540517895",
+    "firebase_url": "https://sa-mailer.firebaseio.com",
+    "project_id": "sa-mailer",
+    "storage_bucket": "sa-mailer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067540517895:android:b82c82f90cdb3f0b",
+        "android_client_info": {
+          "package_name": "com.sam.teamd.samandroidclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067540517895-ro5r70q6ir1gkmmgg8pc28j224ri62cq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm_Qfmb-06VcpJC3fM2KWt1ic1Av0Z1dE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,20 @@
 package com.sam.teamd.samandroidclient.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.sam.teamd.samandroidclient.model.Token;
+import com.sam.teamd.samandroidclient.ui.MainActivity;
 import com.sam.teamd.samandroidclient.util.Constants;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,18 +28,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Api {
 
     private static final String LOG_TAG = Api.class.getSimpleName();
+    public static final String BASE_URL = "http://192.168.0.11:4000/";
 
 
     private static Api instance = null;
-    public static final String BASE_URL = "http://192.168.0.11:4000/";
+    private Context context = null;
+    private boolean isRefresh = false;
+
 
     // Keep yovur services here, build them in buildRetrofit method later
     private UserClient userClient;
+    private MailClient mailClient;
 
 
-    public static Api getInstance() {
+    public static Api getInstance(Context context) {
         if (instance == null) {
-            instance = new Api();
+            instance = new Api(context);
         }
 
         return instance;
@@ -40,42 +52,73 @@ public class Api {
 
 
     // Build retrofit once when creating a single instance
-    private Api() {
+    private Api(Context context) {
         // Implement a method to build your retrofit
         buildRetrofit();
+        this.context = context;
     }
 
-    private void buildRetrofit() {
 
-        Retrofit.Builder builder = new Retrofit.Builder().
-                baseUrl(BASE_URL).
-                addConverterFactory(GsonConverterFactory.create());
+    private void buildRetrofit() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        okhttp3.Response response = chain.proceed(request);
+                        // todo deal with the issues the way you need to
+                        if (response.code() == 401 && !isRefresh) {
+                            isRefresh = true;
+                            RefreshToken();
+                            return response;
+                        }
+                        return response;
+                    }
+                })
+                .build();
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
         this.userClient = retrofit.create(UserClient.class);
+        this.mailClient = retrofit.create(MailClient.class);
 
     }
 
     public UserClient getUserClient() {
         return this.userClient;
     }
+    public MailClient getMailClient() {
+        return this.mailClient;
+    }
 
-    public Token RefreshToken(final Token token, final Context context){
-        final Token newToken = new Token();
-        if(token != null) {
-            UserClient userClient = Api.getInstance().getUserClient();
-            Call<Token> call = userClient.refreshToken(token.getRefresh());
+    public void RefreshToken(){
+        final SharedPreferences sharedPref = context.getSharedPreferences(Constants.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
+        final String refresh = sharedPref.getString(Constants.SHARED_PREF_REF, null);
+        if(token != null && refresh != null) {
+            final Token newToken = new Token(token, refresh);
+            Call<Token> call = userClient.refreshToken(newToken.getRefresh());
             call.enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
                     Log.d(LOG_TAG, response.toString());
                     if (response.isSuccessful()) {
-                        newToken.setRefresh(response.body().getRefresh());
-                        newToken.setToken(response.body().getToken());
+                        sharedPref.edit().putString(Constants.SHARED_PREF_TOKEN, response.body().getToken()).apply();
+                        sharedPref.edit().putString(Constants.SHARED_PREF_REF, response.body().getRefresh()).apply();
+                        isRefresh = false;
                     }else{
-                        SharedPreferences preferences = context.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                        preferences.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
-                        preferences.edit().remove(Constants.SHARED_PREF_REF).apply();
+                        sharedPref.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
+                        sharedPref.edit().remove(Constants.SHARED_PREF_REF).apply();
+                        isRefresh = false;
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
                     }
                 }
                 @Override
@@ -84,10 +127,5 @@ public class Api {
                 }
             });
         }
-        Log.d(LOG_TAG, "TOKEN: " + newToken.getToken() + "    " + newToken.getRefresh());
-        return (newToken.getToken() == null || newToken.getRefresh() == null) ? null : newToken;
     }
-
-
-
 }
