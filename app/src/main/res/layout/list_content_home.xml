@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/icons_container">
+    android:id="@+id/icons_container"
+    android:padding="2dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -12,7 +13,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/static_list_content_home_urgent"
+            android:id="@+id/urgent"
             android:layout_width="14dp"
             android:layout_height="wrap_content"
             android:textColor="#FE2E2E"
@@ -26,7 +27,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/static_list_content_home_sender"
+            android:id="@+id/sender"
             android:layout_width="227dp"
             android:layout_height="wrap_content"
             android:width="210sp"
@@ -36,7 +37,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/static_list_content_home_subject"
+            android:id="@+id/subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
@@ -44,7 +45,7 @@
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/static_list_content_home_content"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
@@ -60,14 +61,14 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/static_list_content_home_date"
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_date"
             android:textSize="20px" />
 
         <TextView
-            android:id="@+id/static_list_content_home_attachment"
+            android:id="@+id/attachment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fa_paperclip" />
@@ -75,4 +76,4 @@
 
 
 
-</LinearLayout>
+</RelativeLayout>
