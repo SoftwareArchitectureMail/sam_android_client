@@ -52,11 +52,6 @@
             android:name=".ui.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
-        <activity
-            android:name=".ui.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <service
             android:name=".service.Firebase.MyFirebaseMessagingService">
             <intent-filter>
