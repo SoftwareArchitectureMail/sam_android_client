@@ -18,7 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sam.teamd.samandroidclient.R;
+import com.sam.teamd.samandroidclient.model.Mail;
 import com.sam.teamd.samandroidclient.util.FontManager;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,7 +30,11 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ArrayList<Mail> mails = new ArrayList<Mail>();
         ListView listHome = (ListView)findViewById(R.id.list_home);
+        MailAdapter adapter = new MailAdapter(this, mails);
+        listHome.setAdapter(adapter);
         
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
