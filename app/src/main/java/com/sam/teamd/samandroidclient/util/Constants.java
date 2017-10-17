@@ -20,5 +20,8 @@ public class Constants {
     public final static String SHARED_PREF_TOKEN = "sam_token";
     public final static String SHARED_PREF_REF = "sam_refresh_token";
 
+    public final static String QUERY_PARAMS_URGENT = "urgent";
+    public final static String QUERY_PARAMS_READ = "read";
+    public final static String QUERY_PARAMS_SENDER = "sender";
 
 }

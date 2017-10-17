@@ -1,4 +1,4 @@
-package com.sam.teamd.samandroidclient.service;
+package com.sam.teamd.samandroidclient.service.Firebase;
 
 import android.util.Log;
 
