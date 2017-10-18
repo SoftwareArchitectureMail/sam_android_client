@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        Intent intent = new Intent(this, Register1Activity.class);
+        Intent intent = new Intent(this, ViewMailActivity.class);
         startActivity(intent);
     }
 }

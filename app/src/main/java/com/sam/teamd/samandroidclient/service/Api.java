@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Api {
 
     private static final String LOG_TAG = Api.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.0.11:4000/";
+    public static final String BASE_URL = "http://10.203.2.184:4000/";
 
 
     private static Api instance = null;
