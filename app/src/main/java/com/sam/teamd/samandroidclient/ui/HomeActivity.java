@@ -149,7 +149,12 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(searchText.equals("") || currentType != MAIL_INBOX){
+            searchText = "";
+            currentType = MAIL_INBOX;
+            loadEmails("");
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -165,7 +170,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchText = query;
-                if(query.length() > 5){
+                if(query.length() >= 5){
                     loadEmails("");
                 }
                 return false;
@@ -173,7 +178,10 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                searchText = newText;
+                if(newText.length() >= 5){
+                    loadEmails("");
+                }
                 return false;
             }
         });
