@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.sam.teamd.samandroidclient.model.Mail;
 import com.sam.teamd.samandroidclient.model.User;
 import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.MailClient;
+import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 import com.sam.teamd.samandroidclient.util.FontManager;
 import com.sam.teamd.samandroidclient.model.Mail;
@@ -60,9 +62,15 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String LOG_TAG = HomeActivity.class.getSimpleName();
 
+    private int mInterval = 30000;
+
     private MailClient mailClient;
+    private UserClient userClient;
     private  User user;
+    private Handler mHandler;
+
     private int currentType;
+    private String searchText = "";
     private List<Mail> mails;
     private ListView listHome;
 
@@ -72,9 +80,13 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         mailClient = Api.getInstance(getApplicationContext()).getMailClient();
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
+
+        mHandler = new Handler();
+        startRepeatingTask();
 
         currentType = MAIL_INBOX;
         loadEmails("");
@@ -114,120 +126,11 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void createMail() {
-        Intent intent = new Intent(this, SendMailActivity.class);
-        intent.putExtra(Constants.EXTRA_USER, user);
-        startActivityForResult(intent, Constants.REQ_CODE_SENDMAIL);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopRepeatingTask();
     }
-
-    private Map<String, String> queryOptions(String query){
-        Map<String, String> options = new HashMap<>();
-        switch (query){
-            case Constants.QUERY_PARAMS_URGENT:
-                options.put(Constants.QUERY_PARAMS_URGENT, String.valueOf(true));
-                break;
-            case Constants.QUERY_PARAMS_READ:
-                options.put(Constants.QUERY_PARAMS_READ, String.valueOf(true));
-                break;
-        }
-        return options;
-    }
-
-
-
-    private Call<List<Mail>> getMultipleCall(String options){
-        Map<String, String> queryOptions = queryOptions(options);
-        String token = loadToken();
-        Call<List<Mail>> call;
-        switch (currentType){
-            case MAIL_INBOX:
-                call = mailClient.getInbox(token, queryOptions);
-                break;
-            case MAIL_SENT:
-                call = mailClient.getSent(token, queryOptions);
-                break;
-            case MAIL_DRAFT:
-                call = mailClient.getDraft(token, queryOptions);
-                break;
-            default:
-                call = mailClient.getInbox(token, queryOptions);
-                break;
-        }
-        return call;
-    }
-
-
-    private void loadEmails(final String options){
-        Call<List<Mail>> call = getMultipleCall(options);
-        call.enqueue(new Callback<List<Mail>>() {
-            @Override
-            public void onResponse(Call<List<Mail>> call, Response<List<Mail>> response) {
-                Log.d(LOG_TAG, response.toString());
-                if(response.isSuccessful()){
-                    mails = response.body();
-                    MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
-                    listHome.setAdapter(adapter);
-                }else if(response.code() == 401){
-                    loadEmails(options);
-                }
-                else{
-                    Toast.makeText(HomeActivity.this, "Error al cargar correos" + response.toString() , Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Mail>> call, Throwable t) {
-                Log.d(LOG_TAG, "Error enviando correo", t);
-                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-
-    private Call<Mail> getSingleCall(String id){
-        String token = loadToken();
-        Call<Mail> call;
-        switch (currentType){
-            case MAIL_INBOX:
-                call = mailClient.getSingleMail(token, id);
-                break;
-            case MAIL_SENT:
-                call = mailClient.getSingleSent(token, id);
-                break;
-            case MAIL_DRAFT:
-                call = mailClient.getSingleDraft(token, id);
-                break;
-            default:
-                call = mailClient.getSingleMail(token, id);
-                break;
-        }
-        return call;
-    }
-
-    private void loadEmail(final String id){
-        Call<Mail> call = getSingleCall(id);
-        call.enqueue(new Callback<Mail>() {
-            @Override
-            public void onResponse(Call<Mail> call, Response<Mail> response) {
-                Log.d(LOG_TAG, response.toString());
-                if(response.isSuccessful()){
-                    Intent intent = new Intent(HomeActivity.this, ViewMailActivity.class);
-                    intent.putExtra(Constants.EXTRA_MAIL, response.body());
-                    startActivityForResult(intent, Constants.REQ_CODE_VIEWMAIL);
-                }else if(response.code() == 401){
-                    loadEmails(id);
-                }
-                else{
-                    Toast.makeText(HomeActivity.this, "Error al cargar el correo" + response.toString() , Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<Mail> call, Throwable t) {
-                Log.d(LOG_TAG, "Error al cargar el correo", t);
-                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -261,7 +164,10 @@ public class HomeActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //TODO Poner lo que va a hacer la búsqueda
+                searchText = query;
+                if(query.length() > 5){
+                    loadEmails("");
+                }
                 return false;
             }
 
@@ -282,10 +188,12 @@ public class HomeActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                break;
+            case R.id.action_logout:
+                logout();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -316,10 +224,176 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    private void createMail() {
+        Intent intent = new Intent(this, SendMailActivity.class);
+        intent.putExtra(Constants.EXTRA_USER, user);
+        startActivityForResult(intent, Constants.REQ_CODE_SENDMAIL);
+    }
+
+    private Map<String, String> queryOptions(String query){
+        Map<String, String> options = new HashMap<>();
+        switch (query) {
+            case Constants.QUERY_PARAMS_URGENT:
+                options.put(Constants.QUERY_PARAMS_URGENT, String.valueOf(true));
+                break;
+            case Constants.QUERY_PARAMS_READ:
+                options.put(Constants.QUERY_PARAMS_READ, String.valueOf(true));
+                break;
+        }
+        if(searchText.length() > 3){
+            options.put(Constants.QUERY_PARAMS_SENDER, searchText);
+        }
+        return options;
+    }
+
+
+    private Call<List<Mail>> getMultipleCall(String options){
+        Map<String, String> queryOptions = queryOptions(options);
+        String token = loadToken();
+        Call<List<Mail>> call;
+        switch (currentType){
+            case MAIL_INBOX:
+                call = mailClient.getInbox(token, queryOptions);
+                break;
+            case MAIL_SENT:
+                call = mailClient.getSent(token, queryOptions);
+                break;
+            case MAIL_DRAFT:
+                call = mailClient.getDraft(token, queryOptions);
+                break;
+            default:
+                call = mailClient.getInbox(token, queryOptions);
+                break;
+        }
+        return call;
+    }
+
+    private Call<Mail> getSingleCall(String id){
+        String token = loadToken();
+        Call<Mail> call;
+        switch (currentType){
+            case MAIL_INBOX:
+                call = mailClient.getSingleMail(token, id);
+                break;
+            case MAIL_SENT:
+                call = mailClient.getSingleSent(token, id);
+                break;
+            case MAIL_DRAFT:
+                call = mailClient.getSingleDraft(token, id);
+                break;
+            default:
+                call = mailClient.getSingleMail(token, id);
+                break;
+        }
+        return call;
+    }
+
+    private void loadEmail(final String id){
+        Call<Mail> call = getSingleCall(id);
+        call.enqueue(new Callback<Mail>() {
+            @Override
+            public void onResponse(Call<Mail> call, Response<Mail> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(HomeActivity.this, ViewMailActivity.class);
+                    intent.putExtra(Constants.EXTRA_MAIL, response.body());
+                    startActivityForResult(intent, Constants.REQ_CODE_VIEWMAIL);
+                }else if(response.code() == 401){
+                    loadEmail(id);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cargar el correo" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Mail> call, Throwable t) {
+                Log.d(LOG_TAG, "Error al cargar el correo", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void loadEmails(final String options){
+        Call<List<Mail>> call = getMultipleCall(options);
+        call.enqueue(new Callback<List<Mail>>() {
+            @Override
+            public void onResponse(Call<List<Mail>> call, Response<List<Mail>> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    mails = response.body();
+                    MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
+                    listHome.setAdapter(adapter);
+                }else if(response.code() == 401){
+                    loadEmails(options);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cargar correos" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Mail>> call, Throwable t) {
+                Log.d(LOG_TAG, "Error enviando correo", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void logout(){
+        Call<ResponseBody> call = userClient.logout(loadToken());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    removeToken();
+                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(response.code() == 401){
+                    logout();
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cerrar sesion" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(LOG_TAG, "Error cerrando sesion", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     private String loadToken() {
         SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
         return token;
+    }
+
+    private void removeToken() {
+        SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPref.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
+        sharedPref.edit().remove(Constants.SHARED_PREF_REF).apply();
+    }
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                loadEmails("");
+            } finally {
+                mHandler.postDelayed(mStatusChecker, mInterval);
+            }
+        }
+    };
+
+    void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+
+    void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
     }
 }
