@@ -36,7 +36,8 @@
             android:text="@string/view_mail_message_sender_txt"
             android:textColor="@android:color/black"
             android:textSize="50px"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/textView_subject"
@@ -45,7 +46,8 @@
             android:text="@string/view_mail_message_subject_txt"
             android:textColor="@android:color/black"
             android:textSize="40px"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/textView_content"
@@ -74,13 +76,25 @@
             android:textSize="35px"
             android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/icon_urgent"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FE2E2E"
-            android:textSize="35px"
-            android:layout_weight="0.36" />
+            android:layout_height="22dp">
+
+            <TextView
+                android:id="@+id/icon_urgent"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:textColor="#FE2E2E"
+                android:textSize="20px" />
+
+            <TextView
+                android:id="@+id/icon_attachment"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:padding="5px"
+                android:textSize="35px" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
