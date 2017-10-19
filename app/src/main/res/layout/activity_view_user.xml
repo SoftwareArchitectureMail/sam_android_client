@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sam.teamd.samandroidclient.ui.ViewMailActivity">
+    tools:context="com.sam.teamd.samandroidclient.ui.ViewUserActivity">
 
 
     <LinearLayout
@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteY="6dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_user_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_user_title"
@@ -31,7 +31,7 @@
             android:padding="20sp"/>
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/textView_user_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_user_full_name"
@@ -39,7 +39,7 @@
             android:padding="5sp"/>
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/textView_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_email"
@@ -47,7 +47,7 @@
             android:padding="5sp"/>
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/textView_user_mobile_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_mobile_phone"
@@ -55,7 +55,7 @@
             android:padding="5sp"/>
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/textView_user_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_gender"
@@ -63,20 +63,13 @@
             android:padding="5sp"/>
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/textView_user_birth_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_birth_date"
             android:textSize="15sp"
             android:padding="5sp"/>
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/view_place"
-            android:textSize="15sp"
-            android:padding="5sp"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

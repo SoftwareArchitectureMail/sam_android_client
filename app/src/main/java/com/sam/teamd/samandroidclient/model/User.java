@@ -142,7 +142,7 @@ public class User implements Serializable{
         this.token = token;
     }
 
-    public String fullName(){
+    public String getFullName(){
         return this.firstName + " " + this.lastName;
     }
 
