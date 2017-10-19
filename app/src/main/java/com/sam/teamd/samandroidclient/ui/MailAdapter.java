@@ -37,7 +37,7 @@ public class MailAdapter extends BaseAdapter {
         TextView textView_content;
         TextView textView_date;
         TextView icon_urgent;
-        TextView icon_attachment;
+        TextView icon_send;
     }
 
     public MailAdapter(Context c, List<Mail> d)
@@ -48,7 +48,6 @@ public class MailAdapter extends BaseAdapter {
         context = c;
         inflater = LayoutInflater.from(c);
     }
-
 
     @Override
     public int getCount() {
@@ -118,8 +117,6 @@ public class MailAdapter extends BaseAdapter {
                     .findViewById(R.id.textView_date);
             holder.icon_urgent = (TextView) convertView
                     .findViewById(R.id.icon_urgent);
-            holder.icon_attachment = (TextView) convertView
-                    .findViewById(R.id.icon_attachment);
             convertView.setTag(holder);
 
         } else
@@ -135,6 +132,13 @@ public class MailAdapter extends BaseAdapter {
         if(data.get(position).getSentDate() != null){
             holder.textView_date.setText(data.get(position).getSentDate().toString());
         }
+        if(data.get(position).isRead()){
+            holder.icon_send.setText(context.getString(R.string.fa_envelope_open));
+            holder.icon_send.setTypeface(fontAwesomeFont);
+        }else
+            holder.icon_send.setText(context.getString(R.string.fa_envelope));
+            holder.icon_send.setTypeface(fontAwesomeFont);
+
 
         //holder.textView_date.setText();
         //holder.icon_urgent.setText();

@@ -56,6 +56,9 @@
     <string name="view_mail_message_body_txt">"Mensaje"</string>
     <string name="send_mail_view_confirmation_txt">"Confirmación de lectura"</string>
     <string name="send_mail_urgent_txt">"Urgente"</string>
+    <string name="view_full_name">"Nombre de usuario"</string>
+    <string name="view_email">Correo</string>>
+    <string name="view_bar">"Mis mensajes"</string>
 
     <!-- Errors Text -->
     <string name="empty_fielf_error">"Este campo no puede estar vacío "</string>
