@@ -38,6 +38,7 @@ public class MailAdapter extends BaseAdapter {
         TextView textView_date;
         TextView icon_urgent;
         TextView icon_send;
+        TextView icon_attachment;
     }
 
     public MailAdapter(Context c, List<Mail> d)
@@ -125,13 +126,16 @@ public class MailAdapter extends BaseAdapter {
         holder.textView_sender.setText(data.get(position).getSender());
         holder.textView_subject.setText(data.get(position).getSubject());
         holder.textView_content.setText(data.get(position).getMessageBody());
+
         if(data.get(position).isUrgent()){
             holder.icon_urgent.setText(context.getString(R.string.fa_exclamation_circle));
             holder.icon_urgent.setTypeface(fontAwesomeFont);
         }
+
         if(data.get(position).getSentDate() != null){
             holder.textView_date.setText(data.get(position).getSentDate().toString());
         }
+
         if(data.get(position).isRead()){
             holder.icon_send.setText(context.getString(R.string.fa_envelope_open));
             holder.icon_send.setTypeface(fontAwesomeFont);
@@ -139,10 +143,11 @@ public class MailAdapter extends BaseAdapter {
             holder.icon_send.setText(context.getString(R.string.fa_envelope));
             holder.icon_send.setTypeface(fontAwesomeFont);
 
+        if(data.get(position).isHasAttachment()){
+            holder.icon_attachment.setText(context.getString(R.string.fa_paperclip));
+            holder.icon_attachment.setTypeface(fontAwesomeFont);
+        }
 
-        //holder.textView_date.setText();
-        //holder.icon_urgent.setText();
-        //holder.icon_attachment.setText();
 
 
         return convertView;
