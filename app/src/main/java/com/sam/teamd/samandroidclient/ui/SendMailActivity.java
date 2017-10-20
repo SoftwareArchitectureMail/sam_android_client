@@ -155,7 +155,7 @@ public class SendMailActivity extends AppCompatActivity {
         text = validateTextField(findViewById(R.id.input_send_mail_message));
         errors = (text == null) || errors;
 
-        cc = getTextField(findViewById(R.id.input_send_mail_cc));
+        cc = "";
 
         if(chkboxPostpone.isChecked()){
             date = getDate();

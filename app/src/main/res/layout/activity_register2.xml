@@ -1,115 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:id="@+id/scroll"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sam.teamd.samandroidclient.ui.Register2Activity">
 
-    <TextView
-        android:id="@+id/txt_register_register"
-        android:layout_width="224dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/register_register_txt"
-        android:textAlignment="center"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/input_register_username"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="0dp"
-        android:ems="10"
-        android:hint="@string/register_username_input"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/input_register_password"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_register_register"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:id="@+id/txt_register_register"
+            android:layout_width="224dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/register_register_txt"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/input_register_currentemail"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:ems="10"
-        android:hint="@string/register_currentmail_input"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/input_register_location"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_register_reppassword"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/input_register_username"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="0dp"
+            android:ems="10"
+            android:hint="@string/register_username_input"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/input_register_password"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_register_register"
+            tools:ignore="LabelFor" />
 
-    <EditText
-        android:id="@+id/input_register_location"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:ems="10"
-        android:hint="@string/register_location_input"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btn_register_send"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_register_currentemail"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/input_register_currentemail"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:ems="10"
+            android:hint="@string/register_currentmail_input"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/input_register_location"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_register_reppassword"
+            tools:ignore="LabelFor" />
 
-    <Button
-        android:id="@+id/btn_register_send"
-        style="@android:style/Widget.Material.Button"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="send"
-        android:text="@string/register_send_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <EditText
+            android:id="@+id/input_register_location"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:ems="10"
+            android:hint="@string/register_location_input"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/btn_register_send"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_register_currentemail"
+            tools:ignore="LabelFor" />
 
-    <EditText
-        android:id="@+id/input_register_password"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:ems="10"
-        android:hint="@string/register_password_input"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/input_register_reppassword"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_register_username" />
+        <Button
+            android:id="@+id/btn_register_send"
+            style="@android:style/Widget.Material.Button"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="send"
+            android:text="@string/register_send_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <EditText
-        android:id="@+id/input_register_reppassword"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:ems="10"
-        android:hint="@string/register_reppassword_input"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/input_register_currentemail"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_register_password" />
+        <EditText
+            android:id="@+id/input_register_password"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:ems="10"
+            android:hint="@string/register_password_input"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/input_register_reppassword"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_register_username" />
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/input_register_reppassword"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:ems="10"
+            android:hint="@string/register_reppassword_input"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/input_register_currentemail"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_register_password" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

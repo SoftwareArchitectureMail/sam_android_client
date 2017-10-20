@@ -31,7 +31,8 @@ public class ViewMailActivity extends AppCompatActivity {
         setText((TextView) findViewById(R.id.txt_view_mail_message_subject), mail.getSubject());
         setText((TextView) findViewById(R.id.txt_view_mail_message_sender), mail.getSender());
         setText((TextView) findViewById(R.id.txt_view_mail_message_recipient), mail.getRecipient());
-        setText((TextView) findViewById(R.id.txt_view_mail_message_sent_date), String.valueOf(mail.getSentDate()));
+        String date = String.valueOf(mail.getSentDate() != null ? mail.getSentDate() : "");
+        setText((TextView) findViewById(R.id.txt_view_mail_message_sent_date), date);
         setText((TextView) findViewById(R.id.txt_view_mail_message_body), mail.getMessageBody());
 
     }
