@@ -8,7 +8,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        tools:ignore="ScrollViewSize">
 
         <EditText
             android:id="@+id/input_send_mail_recipient"
@@ -22,7 +23,7 @@
             android:ems="10"
             android:hint="@string/send_mail_recipient_input"
             android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/input_send_mail_cc"
+            app:layout_constraintBottom_toTopOf="@+id/input_send_mail_subject"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -43,7 +44,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_send_mail_cc"
+            app:layout_constraintTop_toBottomOf="@+id/input_send_mail_recipient"
             android:layout_marginBottom="5dp" />
 
         <EditText
@@ -65,23 +66,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="Deprecated" />
-
-        <EditText
-            android:id="@+id/input_send_mail_cc"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginStart="40dp"
-            android:ems="10"
-            android:hint="@string/send_mail_cc_input"
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/input_send_mail_subject"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_send_mail_recipient" />
 
         <TextView
             android:id="@+id/txt_send_mail_new_message"
