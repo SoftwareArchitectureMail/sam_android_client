@@ -118,8 +118,12 @@ public class MailAdapter extends BaseAdapter {
                     .findViewById(R.id.textView_date);
             holder.icon_urgent = (TextView) convertView
                     .findViewById(R.id.icon_urgent);
+            holder.icon_send = (TextView) convertView
+                    .findViewById(R.id.icon_send);
             holder.icon_attachment = (TextView) convertView
-            convertView.setTag(holder);
+                    .findViewById(R.id.icon_attachment);
+
+
 
         } else
             holder = (ViewHolder) convertView.getTag();

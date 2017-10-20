@@ -376,8 +376,9 @@ public class HomeActivity extends AppCompatActivity
 
     private String loadToken() {
         SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return token;
         String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
+        return token;
+    }
 
     private void removeToken() {
         SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
