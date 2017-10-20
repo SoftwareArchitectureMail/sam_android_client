@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -62,7 +63,7 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String LOG_TAG = HomeActivity.class.getSimpleName();
 
-    private int mInterval = 30000;
+    private int mInterval = 60000;
 
     private MailClient mailClient;
     private UserClient userClient;
@@ -73,6 +74,8 @@ public class HomeActivity extends AppCompatActivity
     private String searchText = "";
     private List<Mail> mails;
     private ListView listHome;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,14 @@ public class HomeActivity extends AppCompatActivity
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.list_home), iconFont);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadEmails("");
+            }
+        });
 
         listHome = (ListView)findViewById(R.id.list_home);
         listHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -325,6 +336,9 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<List<Mail>> call, Response<List<Mail>> response) {
                 Log.d(LOG_TAG, response.toString());
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
                 if(response.isSuccessful()){
                     mails = response.body();
                     MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
