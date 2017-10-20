@@ -285,7 +285,7 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+            Intent intent = new Intent(HomeActivity.this, ViewUserActivity.class);
             user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
             intent.putExtra(Constants.EXTRA_USER,user);
             startActivity(intent);
