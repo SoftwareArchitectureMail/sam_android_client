@@ -13,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -34,7 +35,6 @@ public interface MailClient {
     @GET("draft/{id}")
     Call<Mail> getSingleDraft (@Header("Authorization") String authToken, @Path("id") String id);
 
-
     @GET("inbox")
     Call<List<Mail>> getInbox (@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
 
@@ -43,4 +43,7 @@ public interface MailClient {
 
     @GET("draft")
     Call<List<Mail>> getDraft (@Header("Authorization") String authToken, @QueryMap Map<String, String> options);
+
+    @PUT("inbox/{id}")
+    Call<ResponseBody> putRead (@Header("Authorization") String authToken, @Path("id") String id, @Body Map<String, String> response);
 }

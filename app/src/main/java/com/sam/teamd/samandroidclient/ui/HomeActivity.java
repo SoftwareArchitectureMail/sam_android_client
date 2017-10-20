@@ -85,11 +85,10 @@ public class HomeActivity extends AppCompatActivity
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
 
+        currentType = MAIL_INBOX;
+
         mHandler = new Handler();
         startRepeatingTask();
-
-        currentType = MAIL_INBOX;
-        loadEmails("");
 
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
@@ -142,6 +141,7 @@ public class HomeActivity extends AppCompatActivity
                 }
                 break;
         }
+        loadEmails("");
     }
 
     @Override
@@ -303,9 +303,7 @@ public class HomeActivity extends AppCompatActivity
             public void onResponse(Call<Mail> call, Response<Mail> response) {
                 Log.d(LOG_TAG, response.toString());
                 if(response.isSuccessful()){
-                    Intent intent = new Intent(HomeActivity.this, ViewMailActivity.class);
-                    intent.putExtra(Constants.EXTRA_MAIL, response.body());
-                    startActivityForResult(intent, Constants.REQ_CODE_VIEWMAIL);
+                    readMail(response.body());
                 }else if(response.code() == 401){
                     loadEmail(id);
                 }
@@ -344,6 +342,35 @@ public class HomeActivity extends AppCompatActivity
                 Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void readMail(final Mail mail){
+        Map<String,String> myMap = new HashMap<>();
+        myMap.put("read", "true");
+        Call<ResponseBody> call = mailClient.putRead(loadToken(), mail.getId(), myMap);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(HomeActivity.this, ViewMailActivity.class);
+                    intent.putExtra(Constants.EXTRA_MAIL, mail);
+                    startActivityForResult(intent, Constants.REQ_CODE_VIEWMAIL);
+                }else if(response.code() == 401){
+                    readMail(mail);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cargar correos" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(LOG_TAG, "Error enviando correo", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 
     private void logout(){
