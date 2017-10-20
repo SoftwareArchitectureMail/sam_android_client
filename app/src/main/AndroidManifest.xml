@@ -71,6 +71,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.HomeActivity" />
         </activity>
+        <activity
+            android:name=".ui.ViewUserActivity"
+            android:parentActivityName=".ui.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

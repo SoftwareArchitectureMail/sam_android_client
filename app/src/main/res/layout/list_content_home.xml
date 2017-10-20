@@ -6,19 +6,20 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/icon_urgent"
-            android:layout_width="31dp"
-            android:layout_height="wrap_content"
-            android:textColor="#FE2E2E" />
-
+            android:id="@+id/icon_send"
+            android:layout_width="43dp"
+            android:layout_height="28dp"
+            android:padding="10px"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="50px" />
     </LinearLayout>
 
     <LinearLayout
@@ -28,49 +29,75 @@
 
         <TextView
             android:id="@+id/textView_sender"
-            android:layout_width="match_parent"
+            android:layout_width="231dp"
             android:layout_height="wrap_content"
             android:width="210sp"
             android:maxWidth="210sp"
+            android:text="@string/view_mail_message_sender_txt"
             android:textColor="@android:color/black"
-            android:textSize="40px"
-            android:textStyle="bold" />
+            android:textSize="50px"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/textView_subject"
-            android:layout_width="244dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
+            android:text="@string/view_mail_message_subject_txt"
+            android:textAlignment="textStart"
             android:textColor="@android:color/black"
-            android:textSize="35px"
-            android:textStyle="normal" />
+            android:textSize="40px"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/textView_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="10"
+            android:text="@string/view_mail_message_body_txt"
             android:textColor="@android:color/black"
-            android:textSize="30px"
+            android:textSize="35px"
             android:textStyle="normal" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_weight="0.15">
 
         <TextView
             android:id="@+id/textView_date"
-            android:layout_width="133dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="25px" />
+            android:text="@string/view_mail_message_sent_date_txt"
+            android:textSize="35px" />
 
-        <TextView
-            android:id="@+id/icon_attachment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fa_paperclip" />
+            android:layout_height="22dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/icon_urgent"
+                android:layout_width="50dp"
+                android:layout_height="31dp"
+                android:textColor="#FE2E2E"
+                android:textSize="50px"
+                android:layout_weight="0.12" />
+
+            <TextView
+                android:id="@+id/icon_attachment"
+                android:layout_width="45dp"
+                android:layout_height="26dp"
+                android:padding="5px"
+                android:textSize="50px"
+                android:layout_weight="0.32" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

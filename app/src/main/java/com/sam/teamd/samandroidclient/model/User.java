@@ -142,5 +142,11 @@ public class User implements Serializable{
         this.token = token;
     }
 
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
+    }
 
+    public String email(){
+        return this.username + "@sam.com";
+    }
 }

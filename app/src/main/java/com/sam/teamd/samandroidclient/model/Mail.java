@@ -145,4 +145,5 @@ public class Mail implements Serializable {
     public void setRead(boolean read) {
         this.read = read;
     }
+
 }

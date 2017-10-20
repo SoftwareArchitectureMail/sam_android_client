@@ -37,6 +37,7 @@ public class MailAdapter extends BaseAdapter {
         TextView textView_content;
         TextView textView_date;
         TextView icon_urgent;
+        TextView icon_send;
         TextView icon_attachment;
     }
 
@@ -48,7 +49,6 @@ public class MailAdapter extends BaseAdapter {
         context = c;
         inflater = LayoutInflater.from(c);
     }
-
 
     @Override
     public int getCount() {
@@ -118,9 +118,12 @@ public class MailAdapter extends BaseAdapter {
                     .findViewById(R.id.textView_date);
             holder.icon_urgent = (TextView) convertView
                     .findViewById(R.id.icon_urgent);
+            holder.icon_send = (TextView) convertView
+                    .findViewById(R.id.icon_send);
             holder.icon_attachment = (TextView) convertView
                     .findViewById(R.id.icon_attachment);
-            convertView.setTag(holder);
+
+
 
         } else
             holder = (ViewHolder) convertView.getTag();
@@ -128,17 +131,28 @@ public class MailAdapter extends BaseAdapter {
         holder.textView_sender.setText(data.get(position).getSender());
         holder.textView_subject.setText(data.get(position).getSubject());
         holder.textView_content.setText(data.get(position).getMessageBody());
+
         if(data.get(position).isUrgent()){
             holder.icon_urgent.setText(context.getString(R.string.fa_exclamation_circle));
             holder.icon_urgent.setTypeface(fontAwesomeFont);
         }
+
         if(data.get(position).getSentDate() != null){
             holder.textView_date.setText(data.get(position).getSentDate().toString());
         }
 
-        //holder.textView_date.setText();
-        //holder.icon_urgent.setText();
-        //holder.icon_attachment.setText();
+        if(data.get(position).isRead()){
+            holder.icon_send.setText(context.getString(R.string.fa_envelope_open));
+            holder.icon_send.setTypeface(fontAwesomeFont);
+        }else
+            holder.icon_send.setText(context.getString(R.string.fa_envelope));
+            holder.icon_send.setTypeface(fontAwesomeFont);
+
+        if(data.get(position).isHasAttachment()){
+            holder.icon_attachment.setText(context.getString(R.string.fa_paperclip));
+            holder.icon_attachment.setTypeface(fontAwesomeFont);
+        }
+
 
 
         return convertView;
