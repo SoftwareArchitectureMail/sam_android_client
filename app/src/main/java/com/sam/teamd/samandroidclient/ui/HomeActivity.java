@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.sam.teamd.samandroidclient.model.Mail;
 import com.sam.teamd.samandroidclient.model.User;
 import com.sam.teamd.samandroidclient.service.Api;
 import com.sam.teamd.samandroidclient.service.MailClient;
+import com.sam.teamd.samandroidclient.service.UserClient;
 import com.sam.teamd.samandroidclient.util.Constants;
 import com.sam.teamd.samandroidclient.util.FontManager;
 import com.sam.teamd.samandroidclient.model.Mail;
@@ -60,9 +62,15 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String LOG_TAG = HomeActivity.class.getSimpleName();
 
+    private int mInterval = 30000;
+
     private MailClient mailClient;
+    private UserClient userClient;
     private  User user;
+    private Handler mHandler;
+
     private int currentType;
+    private String searchText = "";
     private List<Mail> mails;
     private ListView listHome;
 
@@ -72,9 +80,13 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         mailClient = Api.getInstance(getApplicationContext()).getMailClient();
+        userClient = Api.getInstance(getApplicationContext()).getUserClient();
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
+
+        mHandler = new Handler();
+        startRepeatingTask();
 
         currentType = MAIL_INBOX;
         loadEmails("");
@@ -114,6 +126,112 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopRepeatingTask();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case Constants.REQ_CODE_SENDMAIL:
+                if (resultCode == Constants.RESULT_OK) {
+                    Toast.makeText(this, getString(R.string.mail_sended_toast), Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else if(searchText.equals("") || currentType != MAIL_INBOX){
+            searchText = "";
+            currentType = MAIL_INBOX;
+            loadEmails("");
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_home_settings,menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView)item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchText = query;
+                if(query.length() >= 5){
+                    loadEmails("");
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchText = newText;
+                if(newText.length() >= 5){
+                    loadEmails("");
+                }
+                return false;
+            }
+        });
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                break;
+            case R.id.action_logout:
+                logout();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_inbox) {
+            currentType = MAIL_INBOX;
+            loadEmails("");
+        } else if (id == R.id.nav_sent) {
+            currentType = MAIL_SENT;
+            loadEmails("");
+        } else if (id == R.id.nav_draft) {
+            currentType = MAIL_DRAFT;
+            loadEmails("");
+        } else if (id == R.id.nav_important) {
+            currentType = MAIL_INBOX;
+            loadEmails(Constants.QUERY_PARAMS_URGENT);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     private void createMail() {
         Intent intent = new Intent(this, SendMailActivity.class);
         intent.putExtra(Constants.EXTRA_USER, user);
@@ -122,7 +240,7 @@ public class HomeActivity extends AppCompatActivity
 
     private Map<String, String> queryOptions(String query){
         Map<String, String> options = new HashMap<>();
-        switch (query){
+        switch (query) {
             case Constants.QUERY_PARAMS_URGENT:
                 options.put(Constants.QUERY_PARAMS_URGENT, String.valueOf(true));
                 break;
@@ -130,9 +248,11 @@ public class HomeActivity extends AppCompatActivity
                 options.put(Constants.QUERY_PARAMS_READ, String.valueOf(true));
                 break;
         }
+        if(searchText.length() > 3){
+            options.put(Constants.QUERY_PARAMS_SENDER, searchText);
+        }
         return options;
     }
-
 
 
     private Call<List<Mail>> getMultipleCall(String options){
@@ -155,33 +275,6 @@ public class HomeActivity extends AppCompatActivity
         }
         return call;
     }
-
-
-    private void loadEmails(final String options){
-        Call<List<Mail>> call = getMultipleCall(options);
-        call.enqueue(new Callback<List<Mail>>() {
-            @Override
-            public void onResponse(Call<List<Mail>> call, Response<List<Mail>> response) {
-                Log.d(LOG_TAG, response.toString());
-                if(response.isSuccessful()){
-                    mails = response.body();
-                    MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
-                    listHome.setAdapter(adapter);
-                }else if(response.code() == 401){
-                    loadEmails(options);
-                }
-                else{
-                    Toast.makeText(HomeActivity.this, "Error al cargar correos" + response.toString() , Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Mail>> call, Throwable t) {
-                Log.d(LOG_TAG, "Error enviando correo", t);
-                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 
     private Call<Mail> getSingleCall(String id){
         String token = loadToken();
@@ -214,7 +307,7 @@ public class HomeActivity extends AppCompatActivity
                     intent.putExtra(Constants.EXTRA_MAIL, response.body());
                     startActivityForResult(intent, Constants.REQ_CODE_VIEWMAIL);
                 }else if(response.code() == 401){
-                    loadEmails(id);
+                    loadEmail(id);
                 }
                 else{
                     Toast.makeText(HomeActivity.this, "Error al cargar el correo" + response.toString() , Toast.LENGTH_SHORT).show();
@@ -228,102 +321,86 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case Constants.REQ_CODE_SENDMAIL:
-                if (resultCode == Constants.RESULT_OK) {
-                    Toast.makeText(this, getString(R.string.mail_sended_toast), Toast.LENGTH_LONG).show();
+    private void loadEmails(final String options){
+        Call<List<Mail>> call = getMultipleCall(options);
+        call.enqueue(new Callback<List<Mail>>() {
+            @Override
+            public void onResponse(Call<List<Mail>> call, Response<List<Mail>> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    mails = response.body();
+                    MailAdapter adapter = new MailAdapter(getApplicationContext(), mails);
+                    listHome.setAdapter(adapter);
+                }else if(response.code() == 401){
+                    loadEmails(options);
                 }
-                break;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_home_settings,menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)item.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //TODO Poner lo que va a hacer la búsqueda
-                return false;
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cargar correos" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
             }
-
             @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
+            public void onFailure(Call<List<Mail>> call, Throwable t) {
+                Log.d(LOG_TAG, "Error enviando correo", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
             }
         });
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void logout(){
+        Call<ResponseBody> call = userClient.logout(loadToken());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(LOG_TAG, response.toString());
+                if(response.isSuccessful()){
+                    removeToken();
+                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(response.code() == 401){
+                    logout();
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Error al cerrar sesion" + response.toString() , Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(HomeActivity.this, ViewUserActivity.class);
-            user = (User) intent.getSerializableExtra(Constants.EXTRA_USER);
-            intent.putExtra(Constants.EXTRA_USER,user);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_inbox) {
-            currentType = MAIL_INBOX;
-            loadEmails("");
-        } else if (id == R.id.nav_sent) {
-            currentType = MAIL_SENT;
-            loadEmails("");
-        } else if (id == R.id.nav_draft) {
-            currentType = MAIL_DRAFT;
-            loadEmails("");
-        } else if (id == R.id.nav_important) {
-            currentType = MAIL_INBOX;
-            loadEmails(Constants.QUERY_PARAMS_URGENT);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(LOG_TAG, "Error cerrando sesion", t);
+                Toast.makeText(HomeActivity.this, getString(R.string.conection_error), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
     private String loadToken() {
         SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
         return token;
+        String token = sharedPref.getString(Constants.SHARED_PREF_TOKEN, null);
+
+    private void removeToken() {
+        SharedPreferences sharedPref = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPref.edit().remove(Constants.SHARED_PREF_TOKEN).apply();
+        sharedPref.edit().remove(Constants.SHARED_PREF_REF).apply();
+    }
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                loadEmails("");
+            } finally {
+                mHandler.postDelayed(mStatusChecker, mInterval);
+            }
+        }
+    };
+
+    void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+
+    void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
     }
 }
