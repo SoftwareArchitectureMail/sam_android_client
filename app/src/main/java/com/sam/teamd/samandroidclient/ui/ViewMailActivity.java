@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.text.Html;
+import android.text.Spanned;
 
 import com.sam.teamd.samandroidclient.R;
 import com.sam.teamd.samandroidclient.model.Mail;
@@ -33,7 +36,14 @@ public class ViewMailActivity extends AppCompatActivity {
         setText((TextView) findViewById(R.id.txt_view_mail_message_recipient), mail.getRecipient());
         String date = String.valueOf(mail.getSentDate() != null ? mail.getSentDate() : "");
         setText((TextView) findViewById(R.id.txt_view_mail_message_sent_date), date);
-        setText((TextView) findViewById(R.id.txt_view_mail_message_body), mail.getMessageBody());
+        //setText((TextView) findViewById(R.id.txt_view_mail_message_body), mail.getMessageBody());
+
+        // get our html content
+        //String htmlAsString = getString(R.string.html);      // used by WebView
+        String htmlAsString = mail.getMessageBody();
+
+        WebView webView = (WebView) findViewById(R.id.txt_view_mail_message_body);
+        webView.loadDataWithBaseURL(null, htmlAsString, "text/html", "utf-8", null);
 
     }
 
