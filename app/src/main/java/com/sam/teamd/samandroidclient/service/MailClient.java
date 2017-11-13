@@ -11,6 +11,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.DELETE;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -46,4 +47,7 @@ public interface MailClient {
 
     @PUT("inbox/{id}")
     Call<ResponseBody> putRead (@Header("Authorization") String authToken, @Path("id") String id, @Body Map<String, String> response);
+
+    @DELETE("inbox/{id}")
+    Call<Mail> delSingleMail (@Header("Authorization") String authToken, @Path("id") String id);
 }

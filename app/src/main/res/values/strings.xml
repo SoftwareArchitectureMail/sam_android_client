@@ -15,6 +15,7 @@
     <string name="register_next_btn">"Siguiente"</string>
     <string name="register_send_btn">"Enviar"</string>
     <string name="send_mail_send_btn">"Enviar"</string>
+    <string name="view_mail_delete_btn">"Borrar"</string>
 
     <!-- Menu -->
     <string name="action_settings">Mi perfil</string>
